@@ -32,6 +32,9 @@ namespace Paint
             graphics.DrawEllipse(new System.Drawing.Pen(System.Drawing.Color.Black), circle.BasePoint.X, circle.BasePoint.Y, circle.A, circle.B);
             var rectangle = new Rectangle(new Point(300, 300), 200, 100);
             graphics.DrawRectangle(new System.Drawing.Pen(System.Drawing.Color.Black), rectangle.BasePoint.X, rectangle.BasePoint.Y, rectangle.Width, rectangle.Height);
+            var square = new Square(new Point(350, 150), 100);
+            graphics.DrawRectangle(new System.Drawing.Pen(System.Drawing.Color.Black), square.BasePoint.X, square.BasePoint.Y, square.Height, square.Width);
+
         }
     }
 }

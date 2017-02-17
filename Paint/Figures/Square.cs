@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Paint.Figures
 {
-    public class Circle : Ellipse
+    public class Square : Rectangle 
     {
-        public Circle(Point point, int radius) : base(point, radius, radius)
+        public Square(Point point, int length) : base(point, length, length)
         {
-                  
+
         }
     }
 }
