@@ -25,11 +25,13 @@ namespace Paint
 
         private void EllipseButton_Click(object sender, EventArgs e)
         {
-            var ellipse = new Ellipse(new Point(200, 200), 150, 100);
+            var ellipse = new Ellipse(new Point(100, 100), 150, 100);
             var graphics = this.CreateGraphics();
             graphics.DrawEllipse(new System.Drawing.Pen(System.Drawing.Color.Black), ellipse.BasePoint.X, ellipse.BasePoint.Y, ellipse.A, ellipse.B);
-            var circle = new Circle(new Point(300, 300), 50);
+            var circle = new Circle(new Point(200, 200), 100);
             graphics.DrawEllipse(new System.Drawing.Pen(System.Drawing.Color.Black), circle.BasePoint.X, circle.BasePoint.Y, circle.A, circle.B);
+            var rectangle = new Rectangle(new Point(300, 300), 200, 100);
+            graphics.DrawRectangle(new System.Drawing.Pen(System.Drawing.Color.Black), rectangle.BasePoint.X, rectangle.BasePoint.Y, rectangle.Width, rectangle.Height);
         }
     }
 }

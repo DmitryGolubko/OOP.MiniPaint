@@ -11,7 +11,7 @@ namespace Paint.Figures
 
         public Circle(Point point, int radius) : base(point, radius, radius)
         {
-       
+                  
         }
     }
 }
