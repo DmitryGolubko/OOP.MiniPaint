@@ -28,6 +28,8 @@ namespace Paint
             var ellipse = new Ellipse(new Point(200, 200), 150, 100);
             var graphics = this.CreateGraphics();
             graphics.DrawEllipse(new System.Drawing.Pen(System.Drawing.Color.Black), ellipse.BasePoint.X, ellipse.BasePoint.Y, ellipse.A, ellipse.B);
+            var circle = new Circle(new Point(300, 300), 50);
+            graphics.DrawEllipse(new System.Drawing.Pen(System.Drawing.Color.Black), circle.BasePoint.X, circle.BasePoint.Y, circle.A, circle.B);
         }
     }
 }
