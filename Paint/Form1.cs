@@ -34,7 +34,8 @@ namespace Paint
             graphics.DrawRectangle(new System.Drawing.Pen(System.Drawing.Color.Black), rectangle.BasePoint.X, rectangle.BasePoint.Y, rectangle.Width, rectangle.Height);
             var square = new Square(new Point(350, 150), 100);
             graphics.DrawRectangle(new System.Drawing.Pen(System.Drawing.Color.Black), square.BasePoint.X, square.BasePoint.Y, square.Height, square.Width);
-
+            var line = new Line(new Point(200, 400), 370, 450);
+            graphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.Black), line.BasePoint.X, line.BasePoint.Y, line.X, line.Y);
         }
     }
 }
