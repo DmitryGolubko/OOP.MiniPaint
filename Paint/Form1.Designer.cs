@@ -33,7 +33,7 @@
             this.RectangleButton = new System.Windows.Forms.Button();
             this.SquareButton = new System.Windows.Forms.Button();
             this.LineButton = new System.Windows.Forms.Button();
-            this.TriangleButton = new System.Windows.Forms.Button();
+            this.PolygonButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // EllipseButton
@@ -86,22 +86,22 @@
             this.LineButton.UseVisualStyleBackColor = true;
             this.LineButton.Click += new System.EventHandler(this.LineButton_Click);
             // 
-            // TriangleButton
+            // PolygonButton
             // 
-            this.TriangleButton.Location = new System.Drawing.Point(12, 277);
-            this.TriangleButton.Name = "TriangleButton";
-            this.TriangleButton.Size = new System.Drawing.Size(120, 47);
-            this.TriangleButton.TabIndex = 5;
-            this.TriangleButton.Text = "Нарисовать треугольник";
-            this.TriangleButton.UseVisualStyleBackColor = true;
-            this.TriangleButton.Click += new System.EventHandler(this.TriangleButton_Click);
+            this.PolygonButton.Location = new System.Drawing.Point(12, 277);
+            this.PolygonButton.Name = "PolygonButton";
+            this.PolygonButton.Size = new System.Drawing.Size(120, 47);
+            this.PolygonButton.TabIndex = 5;
+            this.PolygonButton.Text = "Нарисовать многоугольник";
+            this.PolygonButton.UseVisualStyleBackColor = true;
+            this.PolygonButton.Click += new System.EventHandler(this.PolygonButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(952, 514);
-            this.Controls.Add(this.TriangleButton);
+            this.Controls.Add(this.PolygonButton);
             this.Controls.Add(this.LineButton);
             this.Controls.Add(this.SquareButton);
             this.Controls.Add(this.RectangleButton);
@@ -121,7 +121,7 @@
         private System.Windows.Forms.Button RectangleButton;
         private System.Windows.Forms.Button SquareButton;
         private System.Windows.Forms.Button LineButton;
-        private System.Windows.Forms.Button TriangleButton;
+        private System.Windows.Forms.Button PolygonButton;
     }
 }
 
