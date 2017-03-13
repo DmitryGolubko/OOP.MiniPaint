@@ -10,7 +10,7 @@ namespace Paint.Figures
     public class Line : Figure
     {
         private Point BeginPoint { get; set; }
-        private Point EndPoint { get; set; }
+        public Point EndPoint { get; set; }
 
         public Line(Point beginPoint, Point endPoint)
         {

@@ -3,18 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
 
 namespace Paint.Figures
 {
-    public abstract class Figure
+    class CreatorSquare: CreatorRectangle
     {
-
-        public abstract void Draw(Graphics g);
-
-        public Figure()
+        public override Figure CreateFigure()
         {
-
+            return new Square();
         }
     }
 }

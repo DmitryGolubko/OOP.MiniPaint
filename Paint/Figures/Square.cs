@@ -10,7 +10,7 @@ namespace Paint.Figures
 {
     public class Square : Rectangle 
     {
-        public Square(Point beginpoint, int length) : base(beginpoint, length, length)
+        public Square(Point beginPoint, int length) : base(beginPoint, length, length)
         {
 
         }
