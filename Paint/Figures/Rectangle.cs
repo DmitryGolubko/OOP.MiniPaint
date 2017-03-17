@@ -16,10 +16,10 @@ namespace Paint.Figures
         {
         }
 
-        public override void Draw(Graphics g)
+        public override void Draw(Graphics g, Pen pen)
         {
             GetParams();
-            g.DrawRectangle(new Pen(Color.Black), StartX, StartY, A - StartX, B -StartY);
+            g.DrawRectangle(pen, StartX, StartY, A - StartX, B -StartY);
         }
 
         public override bool GetParams()

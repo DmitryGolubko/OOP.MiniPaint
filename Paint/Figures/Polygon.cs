@@ -17,14 +17,15 @@ namespace Paint.Figures
 
         public override bool GetParams()
         {
+
             return true;
         }
 
        
 
-        public override void Draw(Graphics g)
+        public override void Draw(Graphics g, Pen pen)
         {
-            g.DrawPolygon(new Pen(Color.Black), Points.ToArray());  
+            g.DrawPolygon(pen, Points.ToArray());  
         }
     }
 }

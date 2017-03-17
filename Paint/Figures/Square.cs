@@ -23,10 +23,10 @@ namespace Paint.Figures
 
         }
 
-        public override void Draw(Graphics g)
+        public override void Draw(Graphics g, Pen pen)
         {
             GetParams();
-            g.DrawRectangle(new Pen(Color.Black), StartX, StartY, A - StartX, A - StartX);
+            g.DrawRectangle(pen, StartX, StartY, A - StartX, A - StartX);
         }
     }
 }

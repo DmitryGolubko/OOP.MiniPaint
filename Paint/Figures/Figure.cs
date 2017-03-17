@@ -32,6 +32,6 @@ namespace Paint.Figures
 
         public abstract bool GetParams();
 
-        public abstract void Draw(Graphics g);
+        public abstract void Draw(Graphics g, Pen pen);
     }
 }

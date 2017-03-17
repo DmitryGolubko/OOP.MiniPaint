@@ -18,19 +18,24 @@ namespace Paint
         Graphics graphics;
         List<Figure> Figures;
         private Figure figure;
-        GraphicsState transState;
+        GraphicsState state;
+        private Pen pen;
 
         public Form1()
         {
             InitializeComponent();
             graphics = this.CreateGraphics();
             Figures = new List<Figure>();
+            pen = new Pen(Color.Black, 1);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             DoubleBuffered = true;
-
+            pictureBoxColor.BackColor = Color.Black;
+            trackBarPenWidth.Value = 1;
+            pen.Width = trackBarPenWidth.Value;
+            labelPenWidth.Text = "Толщина линий: " + trackBarPenWidth.Value.ToString();
         }
 
         
@@ -38,11 +43,11 @@ namespace Paint
         private void PolygonButton_Click(object sender, EventArgs e)
         {
             var polygon = new Polygon();
-            polygon.AddPoint(new Point(200, 200));
-            polygon.AddPoint(new Point(200, 300));
-            polygon.AddPoint(new Point(150, 50));
-            polygon.AddPoint(new Point(300, 100));
-            polygon.Draw(graphics);
+            polygon.AddPoint(new Point(500, 300));
+            polygon.AddPoint(new Point(500, 400));
+            polygon.AddPoint(new Point(450, 150));
+            polygon.AddPoint(new Point(600, 200));
+            polygon.Draw(graphics, pen);
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
@@ -51,7 +56,7 @@ namespace Paint
             { 
                 figure.AddPoint(new Point(e.X, e.Y));
                 Figures.Add(figure);
-                transState = graphics.Save();
+                //state = graphics.Save();
             }       
         }
 
@@ -59,13 +64,13 @@ namespace Paint
         {
             if (figure != null)
             {
-                transState = graphics.Save();
-                graphics.Clear(Color.White);
-                graphics.Restore(transState);
-                //DrawAll();
+                //state = graphics.Save();
+                //graphics.Clear(Color.White);
+                //graphics.Restore(state);
+                DrawAll();
                 figure.EndPoint(new Point(e.X, e.Y));
-                figure.Draw(graphics);
-                transState = graphics.Save();
+                figure.Draw(graphics, pen);
+                //state = graphics.Save();
                 //graphics.Restore(transState);
             }
             figure = null;            
@@ -78,9 +83,9 @@ namespace Paint
                 figure.EndPoint(new Point(e.X, e.Y));
                 graphics.Clear(Color.White);
                 
-                figure.Draw(graphics);
+                figure.Draw(graphics, pen);
                 //graphics.Restore(transState);
-                //DrawAll();
+                DrawAll();
             }
 
         }
@@ -89,7 +94,7 @@ namespace Paint
         {
             for (int i = 0; i < Figures.Count; i++)
             {
-                Figures[i].Draw(graphics);
+                Figures[i].Draw(graphics, pen);
             }
         }
 
@@ -97,6 +102,19 @@ namespace Paint
         {
             figure = new CreatorList().GetFigure(Int32.Parse((sender as Button).Tag.ToString()));
 
+        }
+
+        private void buttonChangeColor_Click(object sender, EventArgs e)
+        {
+            colorDialog1.ShowDialog();
+            pen.Color = colorDialog1.Color;
+            pictureBoxColor.BackColor = colorDialog1.Color;
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            pen.Width = trackBarPenWidth.Value;
+            labelPenWidth.Text = "Толщина линий: " + trackBarPenWidth.Value.ToString();
         }
     }
 }
