@@ -9,20 +9,28 @@ namespace Paint.Figures
 {
     public class Ellipse : Figure
     {
-        private int A { get; set; }
-        private int B { get; set; }
-        private Point Center { get; set; }
+        public int A { get; set; }
+        public int B { get; set; }
+        
 
-        public Ellipse(Point center, int a, int b)
+        public Ellipse()
         {
-            this.A = a;
-            this.B = b;
-            this.Center = center;
+
+        }
+
+        public override bool GetParams()
+        {
+            StartX = Points[0].X;
+            StartY = Points[0].Y;
+            A = Points[Points.Count - 1].X;
+            B = Points[Points.Count - 1].Y;
+            return true;
         }
 
         public override void Draw(Graphics g)
         {
-            g.DrawEllipse(new Pen(Color.Black), Center.X - A , Center.Y - B, A * 2, B * 2);
+            GetParams();
+            g.DrawEllipse(new Pen(Color.Black), StartX, StartY, (A-StartX), (B-StartY));
         }
     }
 }

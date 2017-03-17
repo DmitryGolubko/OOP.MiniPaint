@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Paint.Figures;
 using System.Windows.Input;
+using System.Drawing.Drawing2D;
 
 namespace Paint
 {
     public partial class Form1 : Form
     {
         Graphics graphics;
-        int checkingElement = 0;
-        Point startPosition;
         List<Figure> Figures;
-        string currentFigure;
+        private Figure figure;
+        GraphicsState transState;
 
         public Form1()
         {
@@ -30,40 +30,10 @@ namespace Paint
         private void Form1_Load(object sender, EventArgs e)
         {
             DoubleBuffered = true;
-            
+
         }
 
-        private void EllipseButton_Click(object sender, EventArgs e)
-        {
-            var ellipse = new Ellipse(new Point(300, 300), 100, 50);
-            ellipse.Draw(graphics);
-        }
-
-        private void CircleButton_Click(object sender, EventArgs e)
-        {
-            var circle = new Circle(new Point(400, 300), 200);
-            circle.Draw(graphics);
-        }
-
-        private void RectangleButton_Click(object sender, EventArgs e)
-        {
-            var rectangle = new Figures.Rectangle(new Point(400, 300), 200, 100);
-            rectangle.Draw(graphics);
-        }
-
-        private void SquareButton_Click(object sender, EventArgs e)
-        {
-            var square = new Square(new Point(300, 100), 100);
-            square.Draw(graphics);
-        }
-
-        private void LineButton_Click(object sender, EventArgs e)
-        {
-           
-            checkingElement = 1;
-            currentFigure = "Paint.Figures." + LineButton.Name.Replace("Button", "");
-             
-        }
+        
 
         private void PolygonButton_Click(object sender, EventArgs e)
         {
@@ -77,51 +47,56 @@ namespace Paint
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
-            if (checkingElement == 1)
-            {
-                startPosition = e.Location;
-                //currentFigure = "Paint.Figures.Line";
-                Type type = Type.GetType(currentFigure);
-                Type[] paramTypes = new Type[2];
-                paramTypes[0] = (new Point()).GetType();
-                paramTypes[1] = (new Point()).GetType();
-                var temp = type.GetConstructor(paramTypes).Invoke(new Object[]{ new Point(1, 1), new Point(5, 5)});
-                //var line = new Line(startPosition, startPosition);
-                //string typeline = line.GetType().ToString();
-                Figures.Add((Figure)temp);
-            }
-            
+            if (figure != null)
+            { 
+                figure.AddPoint(new Point(e.X, e.Y));
+                Figures.Add(figure);
+                transState = graphics.Save();
+            }       
         }
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (checkingElement == 1)
+            if (figure != null)
             {
-                Point endPosition = e.Location;
-                ((Line)Figures[Figures.Count - 1]).EndPoint = endPosition;
-                ((Line)Figures[Figures.Count - 1]).Draw(graphics);
+                transState = graphics.Save();
+                graphics.Clear(Color.White);
+                graphics.Restore(transState);
+                //DrawAll();
+                figure.EndPoint(new Point(e.X, e.Y));
+                figure.Draw(graphics);
+                transState = graphics.Save();
+                //graphics.Restore(transState);
             }
-            
+            figure = null;            
         }
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if ((figure != null) && (e.Button == MouseButtons.Left))
             {
-                Point endPosition = e.Location;
-                ((Line)Figures[Figures.Count - 1]).EndPoint = endPosition;
+                figure.EndPoint(new Point(e.X, e.Y));
                 graphics.Clear(Color.White);
-                ((Line)Figures[Figures.Count - 1]).Draw(graphics);
-                DrawAll();
+                
+                figure.Draw(graphics);
+                //graphics.Restore(transState);
+                //DrawAll();
             }
-            
+
         }
+
         private void DrawAll()
         {
             for (int i = 0; i < Figures.Count; i++)
             {
                 Figures[i].Draw(graphics);
             }
+        }
+
+        private void btnFigure_MouseDown(object sender, MouseEventArgs e)
+        {
+            figure = new CreatorList().GetFigure(Int32.Parse((sender as Button).Tag.ToString()));
+
         }
     }
 }

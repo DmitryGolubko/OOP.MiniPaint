@@ -9,20 +9,27 @@ namespace Paint.Figures
 {
     public class Rectangle : Figure
     {
-        private int Width { get; set; }
-        private int Height { get; set; }
-        private Point BeginPoint { get; set; }
+        public int A { get; set; }
+        public int B { get; set; }
 
-        public Rectangle(Point beginpoint, int width, int height)
+        public Rectangle()
         {
-            this.Width = width;
-            this.Height = height;
-            this.BeginPoint = beginpoint;
         }
 
         public override void Draw(Graphics g)
         {
-            g.DrawRectangle(new Pen(Color.Black), BeginPoint.X, BeginPoint.Y, Width, Height);
+            GetParams();
+            g.DrawRectangle(new Pen(Color.Black), StartX, StartY, A - StartX, B -StartY);
+        }
+
+        public override bool GetParams()
+        {
+            StartX = Points[0].X;
+            StartY = Points[0].Y;
+            A = Points[Points.Count - 1].X;
+            B = Points[Points.Count - 1].Y;
+            return true;
         }
     }
 }
+

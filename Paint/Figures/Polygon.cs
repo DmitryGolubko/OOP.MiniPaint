@@ -8,18 +8,19 @@ using System.Threading.Tasks;
 namespace Paint.Figures
 {
     class Polygon : Figure
-    {
-        public List<Point> Points { get; private set; }
+    { 
 
         public Polygon()
         {
             Points = new List<Point>();
         }
-        
-        public void AddPoint(Point point)
+
+        public override bool GetParams()
         {
-            Points.Add(point);
+            return true;
         }
+
+       
 
         public override void Draw(Graphics g)
         {

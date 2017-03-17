@@ -42,9 +42,10 @@
             this.EllipseButton.Name = "EllipseButton";
             this.EllipseButton.Size = new System.Drawing.Size(120, 47);
             this.EllipseButton.TabIndex = 0;
+            this.EllipseButton.Tag = "0";
             this.EllipseButton.Text = "Нарисовать эллипс";
             this.EllipseButton.UseVisualStyleBackColor = true;
-            this.EllipseButton.Click += new System.EventHandler(this.EllipseButton_Click);
+            this.EllipseButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnFigure_MouseDown);
             // 
             // CircleButton
             // 
@@ -52,9 +53,10 @@
             this.CircleButton.Name = "CircleButton";
             this.CircleButton.Size = new System.Drawing.Size(120, 47);
             this.CircleButton.TabIndex = 1;
+            this.CircleButton.Tag = "1";
             this.CircleButton.Text = "Нарисовать круг";
             this.CircleButton.UseVisualStyleBackColor = true;
-            this.CircleButton.Click += new System.EventHandler(this.CircleButton_Click);
+            this.CircleButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnFigure_MouseDown);
             // 
             // RectangleButton
             // 
@@ -62,9 +64,10 @@
             this.RectangleButton.Name = "RectangleButton";
             this.RectangleButton.Size = new System.Drawing.Size(120, 47);
             this.RectangleButton.TabIndex = 2;
+            this.RectangleButton.Tag = "2";
             this.RectangleButton.Text = "Нарисовать прямоугольник";
             this.RectangleButton.UseVisualStyleBackColor = true;
-            this.RectangleButton.Click += new System.EventHandler(this.RectangleButton_Click);
+            this.RectangleButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnFigure_MouseDown);
             // 
             // SquareButton
             // 
@@ -72,9 +75,10 @@
             this.SquareButton.Name = "SquareButton";
             this.SquareButton.Size = new System.Drawing.Size(120, 47);
             this.SquareButton.TabIndex = 3;
+            this.SquareButton.Tag = "3";
             this.SquareButton.Text = "Нарисовать квадрат";
             this.SquareButton.UseVisualStyleBackColor = true;
-            this.SquareButton.Click += new System.EventHandler(this.SquareButton_Click);
+            this.SquareButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnFigure_MouseDown);
             // 
             // LineButton
             // 
@@ -82,9 +86,10 @@
             this.LineButton.Name = "LineButton";
             this.LineButton.Size = new System.Drawing.Size(120, 47);
             this.LineButton.TabIndex = 4;
+            this.LineButton.Tag = "4";
             this.LineButton.Text = "Нарисовать линию";
             this.LineButton.UseVisualStyleBackColor = true;
-            this.LineButton.Click += new System.EventHandler(this.LineButton_Click);
+            this.LineButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnFigure_MouseDown);
             // 
             // PolygonButton
             // 
@@ -92,9 +97,11 @@
             this.PolygonButton.Name = "PolygonButton";
             this.PolygonButton.Size = new System.Drawing.Size(120, 47);
             this.PolygonButton.TabIndex = 5;
+            this.PolygonButton.Tag = "5";
             this.PolygonButton.Text = "Нарисовать многоугольник";
             this.PolygonButton.UseVisualStyleBackColor = true;
             this.PolygonButton.Click += new System.EventHandler(this.PolygonButton_Click);
+            this.PolygonButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnFigure_MouseDown);
             // 
             // Form1
             // 

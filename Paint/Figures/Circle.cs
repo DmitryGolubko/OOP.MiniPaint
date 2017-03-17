@@ -9,10 +9,22 @@ namespace Paint.Figures
 {
     public class Circle : Ellipse
     {
-        public Circle(Point center, int radius) : base(center, radius, radius)
+        public Circle()
         {
-                  
         }
 
+        public override bool GetParams()
+        {
+            StartX = Points[0].X;
+            StartY = Points[0].Y;
+            A = Points[Points.Count - 1].X;
+            return true;
+        }
+
+        public override void Draw(Graphics g)
+        {
+            GetParams();
+            g.DrawEllipse(new Pen(Color.Black), StartX, StartY, (A - StartX), (A-StartX));
+        }
     }
 }

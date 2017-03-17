@@ -47,6 +47,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Figures\Circle.cs" />
+    <Compile Include="Figures\Creator.cs" />
+    <Compile Include="Figures\CreatorCircle.cs" />
+    <Compile Include="Figures\CreatorEllipse.cs" />
+    <Compile Include="Figures\CreatorLine.cs" />
+    <Compile Include="Figures\CreatorList.cs" />
+    <Compile Include="Figures\CreatorPolygon.cs" />
+    <Compile Include="Figures\CreatorRectangle.cs" />
+    <Compile Include="Figures\CreatorSquare.cs" />
     <Compile Include="Figures\Ellipse.cs" />
     <Compile Include="Figures\Figure.cs" />
     <Compile Include="Figures\Line.cs" />

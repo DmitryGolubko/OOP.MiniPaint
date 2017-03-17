@@ -9,18 +9,27 @@ namespace Paint.Figures
 {
     public class Line : Figure
     {
-        private Point BeginPoint { get; set; }
-        public Point EndPoint { get; set; }
+        public int EndX;
+        public int EndY;
 
-        public Line(Point beginPoint, Point endPoint)
+        public Line()
         {
-            this.BeginPoint = beginPoint;
-            this.EndPoint = endPoint;
+          
+        }
+
+        public override bool GetParams()
+        {
+            StartX = Points[0].X;
+            StartY = Points[0].Y;
+            EndX = Points[Points.Count - 1].X;
+            EndY = Points[Points.Count - 1].Y;
+            return true;
         }
 
         public override void Draw(Graphics g)
-        {
-            g.DrawLine(new Pen(Color.Black), BeginPoint.X, BeginPoint.Y, EndPoint.X, EndPoint.Y);
+        {   
+            GetParams();
+            g.DrawLine(new Pen(Color.Black), StartX, StartY, EndX, EndY);
         }
     }
 }
