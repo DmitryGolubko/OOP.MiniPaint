@@ -15,16 +15,17 @@ namespace Paint
 {
     public partial class Form1 : Form
     {
-        Graphics graphics;
-        List<Figure> Figures;
+        private Graphics graphics;
+        private List<Figure> Figures;
         private Figure figure;
-        GraphicsState state;
+        //GraphicsState state;
         private Pen pen;
+        private Bitmap buffer;
 
         public Form1()
         {
             InitializeComponent();
-            graphics = this.CreateGraphics();
+            graphics = pictureBox1.CreateGraphics();
             Figures = new List<Figure>();
             pen = new Pen(Color.Black, 1);
         }
@@ -36,65 +37,14 @@ namespace Paint
             trackBarPenWidth.Value = 1;
             pen.Width = trackBarPenWidth.Value;
             labelPenWidth.Text = "Толщина линий: " + trackBarPenWidth.Value.ToString();
+            buffer = new Bitmap((int)graphics.VisibleClipBounds.Width, (int)graphics.VisibleClipBounds.Height);
         }
-
-        
-
-        private void PolygonButton_Click(object sender, EventArgs e)
-        {
-            var polygon = new Polygon();
-            polygon.AddPoint(new Point(500, 300));
-            polygon.AddPoint(new Point(500, 400));
-            polygon.AddPoint(new Point(450, 150));
-            polygon.AddPoint(new Point(600, 200));
-            polygon.Draw(graphics, pen);
-        }
-
-        private void Form1_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (figure != null)
-            { 
-                figure.AddPoint(new Point(e.X, e.Y));
-                Figures.Add(figure);
-                //state = graphics.Save();
-            }       
-        }
-
-        private void Form1_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (figure != null)
-            {
-                //state = graphics.Save();
-                //graphics.Clear(Color.White);
-                //graphics.Restore(state);
-                DrawAll();
-                figure.EndPoint(new Point(e.X, e.Y));
-                figure.Draw(graphics, pen);
-                //state = graphics.Save();
-                //graphics.Restore(transState);
-            }
-            figure = null;            
-        }
-
-        private void Form1_MouseMove(object sender, MouseEventArgs e)
-        {
-            if ((figure != null) && (e.Button == MouseButtons.Left))
-            {
-                figure.EndPoint(new Point(e.X, e.Y));
-                graphics.Clear(Color.White);
-                
-                figure.Draw(graphics, pen);
-                //graphics.Restore(transState);
-                DrawAll();
-            }
-
-        }
-
+                              
         private void DrawAll()
         {
             for (int i = 0; i < Figures.Count; i++)
             {
-                Figures[i].Draw(graphics, pen);
+                Figures[i].Draw(graphics);
             }
         }
 
@@ -115,6 +65,51 @@ namespace Paint
         {
             pen.Width = trackBarPenWidth.Value;
             labelPenWidth.Text = "Толщина линий: " + trackBarPenWidth.Value.ToString();
+        }
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (figure != null)
+            {
+                figure.AddPoint(new Point(e.X, e.Y));
+                figure.BrushParams = new Pen(pen.Color, pen.Width);
+                Figures.Add(figure);
+                
+                //state = graphics.Save();
+            }
+        }
+
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if ((figure != null) && (e.Button == MouseButtons.Left))
+            {
+                figure.EndPoint(new Point(e.X, e.Y));
+                graphics.Clear(Color.White);
+                figure.Draw(graphics);
+                //graphics.Restore(transState);
+                DrawAll();
+            }
+        }
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (figure != null)
+            {
+                
+                DrawAll();
+                figure.EndPoint(new Point(e.X, e.Y));
+                figure.Draw(graphics);
+                //state = graphics.Save();
+                //graphics.Restore(transState);
+                //buffer
+            }
+            figure = null;
+        }
+
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            Figures.Clear();
+            graphics.Clear(Color.White);
         }
     }
 }

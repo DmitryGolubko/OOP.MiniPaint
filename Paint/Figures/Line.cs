@@ -26,10 +26,10 @@ namespace Paint.Figures
             return true;
         }
 
-        public override void Draw(Graphics g, Pen pen)
+        public override void Draw(Graphics g)
         {   
             GetParams();
-            g.DrawLine(pen, StartX, StartY, EndX, EndY);
+            g.DrawLine(BrushParams, StartX, StartY, EndX, EndY);
         }
     }
 }

@@ -40,9 +40,13 @@
             this.pictureBoxColor = new System.Windows.Forms.PictureBox();
             this.trackBarPenWidth = new System.Windows.Forms.TrackBar();
             this.labelPenWidth = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label1LineStyle = new System.Windows.Forms.Label();
+            this.buttonClear = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPenWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // EllipseButton
@@ -107,9 +111,8 @@
             this.PolygonButton.Size = new System.Drawing.Size(153, 42);
             this.PolygonButton.TabIndex = 5;
             this.PolygonButton.Tag = "5";
-            this.PolygonButton.Text = "Многоугольник";
+            this.PolygonButton.Text = "Пятиугольник";
             this.PolygonButton.UseVisualStyleBackColor = true;
-            this.PolygonButton.Click += new System.EventHandler(this.PolygonButton_Click);
             this.PolygonButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnFigure_MouseDown);
             // 
             // groupBox1
@@ -168,12 +171,48 @@
             this.labelPenWidth.TabIndex = 10;
             this.labelPenWidth.Text = "Толщина линий";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.Location = new System.Drawing.Point(345, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(690, 490);
+            this.pictureBox1.TabIndex = 11;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
+            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
+            // 
+            // label1LineStyle
+            // 
+            this.label1LineStyle.AutoSize = true;
+            this.label1LineStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1LineStyle.Location = new System.Drawing.Point(14, 308);
+            this.label1LineStyle.Name = "label1LineStyle";
+            this.label1LineStyle.Size = new System.Drawing.Size(98, 20);
+            this.label1LineStyle.TabIndex = 12;
+            this.label1LineStyle.Text = "Вид линий";
+            // 
+            // buttonClear
+            // 
+            this.buttonClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonClear.Location = new System.Drawing.Point(18, 380);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(151, 42);
+            this.buttonClear.TabIndex = 13;
+            this.buttonClear.Text = "Очистить поле";
+            this.buttonClear.UseVisualStyleBackColor = true;
+            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1047, 514);
+            this.Controls.Add(this.buttonClear);
+            this.Controls.Add(this.label1LineStyle);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.labelPenWidth);
             this.Controls.Add(this.trackBarPenWidth);
             this.Controls.Add(this.pictureBoxColor);
@@ -182,12 +221,10 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseUp);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPenWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -207,6 +244,9 @@
         private System.Windows.Forms.PictureBox pictureBoxColor;
         private System.Windows.Forms.TrackBar trackBarPenWidth;
         private System.Windows.Forms.Label labelPenWidth;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label1LineStyle;
+        private System.Windows.Forms.Button buttonClear;
     }
 }
 

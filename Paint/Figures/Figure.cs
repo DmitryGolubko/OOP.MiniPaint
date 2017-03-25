@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace Paint.Figures
 {
@@ -12,7 +13,8 @@ namespace Paint.Figures
     {
         public List<Point> Points;
         public int StartX;
-        public int StartY; 
+        public int StartY;
+        public Pen BrushParams;
 
         public Figure()
         {
@@ -32,6 +34,6 @@ namespace Paint.Figures
 
         public abstract bool GetParams();
 
-        public abstract void Draw(Graphics g, Pen pen);
+        public abstract void Draw(Graphics graphics);
     }
 }

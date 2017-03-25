@@ -27,10 +27,10 @@ namespace Paint.Figures
             return true;
         }
 
-        public override void Draw(Graphics g, Pen pen)
+        public override void Draw(Graphics g)
         {
             GetParams();
-            g.DrawEllipse(pen, StartX, StartY, (A-StartX), (B-StartY));
+            g.DrawEllipse(BrushParams, StartX, StartY, (A-StartX), (B-StartY));
         }
     }
 }

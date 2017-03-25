@@ -21,10 +21,25 @@ namespace Paint.Figures
             return true;
         }
 
-        public override void Draw(Graphics g, Pen pen)
+        public override void Draw(Graphics g)
         {
             GetParams();
-            g.DrawEllipse(pen, StartX, StartY, (A - StartX), (A-StartX));
+            if (((StartX - A) > 0) && ((StartY -B) > 0)) 
+            {
+                g.DrawEllipse(BrushParams, StartX, StartY, (A - StartX), (A - StartX));
+            }
+            if (((StartX - A) > 0) && ((StartY - B) < 0))
+            {
+                g.DrawEllipse(BrushParams, StartX, StartY, (A - StartX), (A - StartX));
+            }
+            if (((StartX - A) < 0) && ((StartY - B) > 0))
+            {
+                g.DrawEllipse(BrushParams, StartX, StartY, (A - StartX), (A - StartX));
+            }
+            if (((StartX - A) < 0) && ((StartY - B) < 0))
+            {
+                g.DrawEllipse(BrushParams, StartX, StartY, (A - StartX), (A - StartX));
+            }
         }
     }
 }

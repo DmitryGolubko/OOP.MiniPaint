@@ -19,14 +19,14 @@ namespace Paint.Figures
             StartX = Points[0].X;
             StartY = Points[0].Y;
             A = Points[Points.Count - 1].X;
+            
             return true;
-
         }
 
-        public override void Draw(Graphics g, Pen pen)
+        public override void Draw(Graphics g)
         {
             GetParams();
-            g.DrawRectangle(pen, StartX, StartY, A - StartX, A - StartX);
+            g.DrawRectangle(BrushParams, StartX, StartY, A - StartX, A - StartX);
         }
     }
 }
