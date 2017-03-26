@@ -18,9 +18,8 @@ namespace Paint
         private Graphics graphics;
         private List<Figure> Figures;
         private Figure figure;
-        //GraphicsState state;
         private Pen pen;
-        private Bitmap buffer;
+        //private Bitmap buffer;
 
         public Form1()
         {
@@ -37,7 +36,7 @@ namespace Paint
             trackBarPenWidth.Value = 1;
             pen.Width = trackBarPenWidth.Value;
             labelPenWidth.Text = "Толщина линий: " + trackBarPenWidth.Value.ToString();
-            buffer = new Bitmap((int)graphics.VisibleClipBounds.Width, (int)graphics.VisibleClipBounds.Height);
+            //buffer = new Bitmap((int)graphics.VisibleClipBounds.Width, (int)graphics.VisibleClipBounds.Height);
         }
                               
         private void DrawAll()
@@ -74,8 +73,6 @@ namespace Paint
                 figure.AddPoint(new Point(e.X, e.Y));
                 figure.BrushParams = new Pen(pen.Color, pen.Width);
                 Figures.Add(figure);
-                
-                //state = graphics.Save();
             }
         }
 
@@ -86,7 +83,6 @@ namespace Paint
                 figure.EndPoint(new Point(e.X, e.Y));
                 graphics.Clear(Color.White);
                 figure.Draw(graphics);
-                //graphics.Restore(transState);
                 DrawAll();
             }
         }
@@ -94,14 +90,10 @@ namespace Paint
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             if (figure != null)
-            {
-                
+            { 
                 DrawAll();
                 figure.EndPoint(new Point(e.X, e.Y));
                 figure.Draw(graphics);
-                //state = graphics.Save();
-                //graphics.Restore(transState);
-                //buffer
             }
             figure = null;
         }
@@ -110,6 +102,12 @@ namespace Paint
         {
             Figures.Clear();
             graphics.Clear(Color.White);
+        }
+
+        private void Form1_ClientSizeChanged(object sender, EventArgs e)
+        {   
+            pictureBox1.Width = this.Width;
+            pictureBox1.Height = this.Height; 
         }
     }
 }

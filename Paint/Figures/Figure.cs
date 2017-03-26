@@ -12,9 +12,9 @@ namespace Paint.Figures
     public abstract class Figure
     {
         public List<Point> Points;
-        public int StartX;
-        public int StartY;
-        public Pen BrushParams;
+        public int StartX { get; set; }
+        public int StartY { get; set; }
+        public Pen BrushParams { get; set; }
 
         public Figure()
         {

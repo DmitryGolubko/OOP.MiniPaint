@@ -41,7 +41,6 @@
             this.trackBarPenWidth = new System.Windows.Forms.TrackBar();
             this.labelPenWidth = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1LineStyle = new System.Windows.Forms.Label();
             this.buttonClear = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColor)).BeginInit();
@@ -183,16 +182,6 @@
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
-            // label1LineStyle
-            // 
-            this.label1LineStyle.AutoSize = true;
-            this.label1LineStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1LineStyle.Location = new System.Drawing.Point(14, 308);
-            this.label1LineStyle.Name = "label1LineStyle";
-            this.label1LineStyle.Size = new System.Drawing.Size(98, 20);
-            this.label1LineStyle.TabIndex = 12;
-            this.label1LineStyle.Text = "Вид линий";
-            // 
             // buttonClear
             // 
             this.buttonClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -211,7 +200,6 @@
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1047, 514);
             this.Controls.Add(this.buttonClear);
-            this.Controls.Add(this.label1LineStyle);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.labelPenWidth);
             this.Controls.Add(this.trackBarPenWidth);
@@ -221,6 +209,8 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.ClientSizeChanged += new System.EventHandler(this.Form1_ClientSizeChanged);
+            
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPenWidth)).EndInit();
@@ -245,7 +235,6 @@
         private System.Windows.Forms.TrackBar trackBarPenWidth;
         private System.Windows.Forms.Label labelPenWidth;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label1LineStyle;
         private System.Windows.Forms.Button buttonClear;
     }
 }
