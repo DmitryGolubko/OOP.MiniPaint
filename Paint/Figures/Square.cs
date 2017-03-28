@@ -10,6 +10,7 @@ namespace Paint.Figures
 {
     public class Square : Rectangle 
     {
+        private int length;
         public Square()
         {
         }
@@ -19,14 +20,30 @@ namespace Paint.Figures
             StartX = Points[0].X;
             StartY = Points[0].Y;
             A = Points[Points.Count - 1].X;
-            
+            B = Points[Points.Count - 1].Y;
+            length = (Math.Abs(StartX - A) + Math.Abs(StartY - B))/2;
             return true;
         }
 
         public override void Draw(Graphics g)
         {
             GetParams();
-            g.DrawRectangle(BrushParams, StartX, StartY, A - StartX, A - StartX);
+            if (((StartX - A) > 0) && ((StartY - B) > 0))
+            {
+                g.DrawRectangle(BrushParams, StartX - (StartX - A), StartY - (StartY - B), length, length);
+            }
+            //if (((StartX - A) > 0) && ((StartY - B) < 0))
+            //{
+            //    g.DrawRectangle(BrushParams, StartX - (StartX - A), StartY, length, length);
+            //}
+            //if (((StartX - A) < 0) && ((StartY - B) > 0))
+            //{
+            //    g.DrawRectangle(BrushParams, StartX, StartY - (StartY - B), length, length);
+            //}
+            if (((StartX - A) < 0) && ((StartY - B) < 0))
+            {
+                g.DrawRectangle(BrushParams, StartX, StartY, length, length);
+            }
         }
     }
 }

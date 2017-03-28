@@ -17,9 +17,24 @@ namespace Paint.Figures
         }
 
         public override void Draw(Graphics g)
-        {
+        { 
             GetParams();
-            g.DrawRectangle(BrushParams, StartX, StartY, A - StartX, B -StartY);
+            if (((StartX - A) > 0) && ((StartY - B) > 0))
+            {
+                g.DrawRectangle(BrushParams, StartX - (StartX - A), StartY - (StartY - B), StartX - A, StartY - B);
+            }
+            if (((StartX - A) > 0) && ((StartY - B) < 0))
+            {
+                g.DrawRectangle(BrushParams, StartX - (StartX - A), StartY, StartX - A, B - StartY);
+            }
+            if (((StartX - A) < 0) && ((StartY - B) > 0))
+            {
+                g.DrawRectangle(BrushParams, StartX, StartY - (StartY - B), A - StartX, StartY - B);
+            }
+            if (((StartX - A) < 0) && ((StartY - B) < 0))
+            {
+                g.DrawRectangle(BrushParams, StartX, StartY, A - StartX, B - StartY);
+            }
         }
 
         public override bool GetParams()
