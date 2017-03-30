@@ -7,6 +7,7 @@ using System.Drawing;
 
 namespace Paint.Figures
 {
+    [Serializable]
     public class Circle : Ellipse
     {
         private int diameter;
@@ -29,19 +30,19 @@ namespace Paint.Figures
             GetParams();
             if (((StartX - A) > 0) && ((StartY - A) > 0))       //works
             {
-                g.DrawEllipse(BrushParams, StartX - (StartX - A), StartY - (StartY - B), diameter, diameter);
+                g.DrawEllipse(new Pen(colorParams, widthParams), StartX - (StartX - A), StartY - (StartY - B), diameter, diameter);
             }
             if (((StartX - A) > 0) && ((StartY - A) < 0))
             {
-                g.DrawEllipse(BrushParams, StartX - (StartX - A), StartY, diameter, diameter);
+                g.DrawEllipse(new Pen(colorParams, widthParams), StartX - (StartX - A), StartY, diameter, diameter);
             }
             if (((StartX - A) < 0) && ((StartY - A) > 0))
             {
-                g.DrawEllipse(BrushParams, StartX, StartY - (StartY - B), diameter, diameter);
+                g.DrawEllipse(new Pen(colorParams, widthParams), StartX, StartY - (StartY - B), diameter, diameter);
             }
             if (((StartX - A) < 0) && ((StartY - A) < 0))           //работает
             {
-                g.DrawEllipse(BrushParams, StartX, StartY, diameter, diameter);
+                g.DrawEllipse(new Pen(colorParams, widthParams), StartX, StartY, diameter, diameter);
             }
         }
     }

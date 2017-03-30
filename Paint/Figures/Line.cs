@@ -7,6 +7,7 @@ using System.Drawing;
 
 namespace Paint.Figures
 {
+    [Serializable]
     public class Line : Figure
     {
         public int EndX;
@@ -29,7 +30,7 @@ namespace Paint.Figures
         public override void Draw(Graphics g)
         {   
             GetParams();
-            g.DrawLine(BrushParams, StartX, StartY, EndX, EndY);
+            g.DrawLine(new Pen(colorParams, widthParams), StartX, StartY, EndX, EndY);
         }
     }
 }

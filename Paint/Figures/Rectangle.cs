@@ -7,6 +7,7 @@ using System.Drawing;
 
 namespace Paint.Figures
 {
+    [Serializable]
     public class Rectangle : Figure
     {
         public int A { get; set; }
@@ -21,19 +22,19 @@ namespace Paint.Figures
             GetParams();
             if (((StartX - A) > 0) && ((StartY - B) > 0))
             {
-                g.DrawRectangle(BrushParams, StartX - (StartX - A), StartY - (StartY - B), StartX - A, StartY - B);
+                g.DrawRectangle(new Pen(colorParams, widthParams), StartX - (StartX - A), StartY - (StartY - B), StartX - A, StartY - B);
             }
             if (((StartX - A) > 0) && ((StartY - B) < 0))
             {
-                g.DrawRectangle(BrushParams, StartX - (StartX - A), StartY, StartX - A, B - StartY);
+                g.DrawRectangle(new Pen(colorParams, widthParams), StartX - (StartX - A), StartY, StartX - A, B - StartY);
             }
             if (((StartX - A) < 0) && ((StartY - B) > 0))
             {
-                g.DrawRectangle(BrushParams, StartX, StartY - (StartY - B), A - StartX, StartY - B);
+                g.DrawRectangle(new Pen(colorParams, widthParams), StartX, StartY - (StartY - B), A - StartX, StartY - B);
             }
             if (((StartX - A) < 0) && ((StartY - B) < 0))
             {
-                g.DrawRectangle(BrushParams, StartX, StartY, A - StartX, B - StartY);
+                g.DrawRectangle(new Pen(colorParams, widthParams), StartX, StartY, A - StartX, B - StartY);
             }
         }
 

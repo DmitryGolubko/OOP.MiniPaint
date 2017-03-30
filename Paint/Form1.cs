@@ -9,7 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Paint.Figures;
 using System.Windows.Input;
-using System.Drawing.Drawing2D;
+using System.IO;
+
+using System.Runtime.Serialization.Formatters.Binary;
+
 
 namespace Paint
 {
@@ -19,6 +22,7 @@ namespace Paint
         private List<Figure> Figures;
         private Figure figure;
         private Pen pen;
+        public BinaryFormatter formatter;
         //private Bitmap buffer;
 
         public Form1()
@@ -36,6 +40,8 @@ namespace Paint
             trackBarPenWidth.Value = 1;
             pen.Width = trackBarPenWidth.Value;
             labelPenWidth.Text = "Толщина линий: " + trackBarPenWidth.Value.ToString();
+            buttonSerialize.Enabled = false;
+            buttonDeserialize.Enabled = true;
             //buffer = new Bitmap((int)graphics.VisibleClipBounds.Width, (int)graphics.VisibleClipBounds.Height);
         }
                               
@@ -71,8 +77,10 @@ namespace Paint
             if (figure != null)
             {
                 figure.AddPoint(new Point(e.X, e.Y));
-                figure.BrushParams = new Pen(pen.Color, pen.Width);
+                figure.colorParams = pen.Color;
+                figure.widthParams = pen.Width;
                 Figures.Add(figure);
+                buttonSerialize.Enabled = true;
             }
         }
 
@@ -108,6 +116,35 @@ namespace Paint
         {   
             pictureBox1.Width = this.Width;
             pictureBox1.Height = this.Height; 
+        }
+
+        private void buttonSerialize_Click(object sender, EventArgs e)
+        {
+            if (Figures.Count == 0)
+            {
+                MessageBox.Show("Нечего сериалиализовывать.", "Ошибка", MessageBoxButtons.OK);
+            }
+            else
+            {
+                var formatter = new BinaryFormatter();
+                saveFileDialog1.ShowDialog();
+                using (var fStream = new FileStream(saveFileDialog1.FileName, FileMode.Create, FileAccess.Write, FileShare.None))
+                {
+                    formatter.Serialize(fStream, Figures);
+                }
+            }
+        }
+
+        private void buttonDeserialize_Click(object sender, EventArgs e)
+        {
+            var formatter = new BinaryFormatter();
+            openFileDialog1.ShowDialog();
+            using (var fStream = File.OpenRead(openFileDialog1.FileName))
+            {
+                Figures = new List<Figure>();
+                Figures = (List<Figure>)formatter.Deserialize(fStream);
+                DrawAll();    
+            }
         }
     }
 }

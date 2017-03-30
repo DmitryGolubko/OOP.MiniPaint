@@ -8,13 +8,14 @@ using System.Windows.Forms;
 
 namespace Paint.Figures
 {
-
+    [Serializable]
     public abstract class Figure
     {
         public List<Point> Points;
         public int StartX { get; set; }
         public int StartY { get; set; }
-        public Pen BrushParams { get; set; }
+        public Color colorParams { get; set; }
+        public float widthParams { get; set; }
 
         public Figure()
         {

@@ -8,6 +8,7 @@ using System.Drawing;
 
 namespace Paint.Figures
 {
+    [Serializable]
     public class Square : Rectangle 
     {
         private int length;
@@ -30,19 +31,19 @@ namespace Paint.Figures
             GetParams();
             if (((StartX - A) > 0) && ((StartY - B) > 0))
             {
-                g.DrawRectangle(BrushParams, StartX - (StartX - A), StartY - (StartY - B), length, length);
+                g.DrawRectangle(new Pen(colorParams, widthParams), StartX - (StartX - A), StartY - (StartY - B), length, length);
             }
-            //if (((StartX - A) > 0) && ((StartY - B) < 0))
-            //{
-            //    g.DrawRectangle(BrushParams, StartX - (StartX - A), StartY, length, length);
-            //}
-            //if (((StartX - A) < 0) && ((StartY - B) > 0))
-            //{
-            //    g.DrawRectangle(BrushParams, StartX, StartY - (StartY - B), length, length);
-            //}
+            if (((StartX - A) > 0) && ((StartY - B) < 0))
+            {
+                g.DrawRectangle(new Pen(colorParams, widthParams), StartX - (StartX - A), StartY, length, length);
+            }
+            if (((StartX - A) < 0) && ((StartY - B) > 0))
+            {
+                g.DrawRectangle(new Pen(colorParams, widthParams), StartX, StartY - (StartY - B), length, length);
+            }
             if (((StartX - A) < 0) && ((StartY - B) < 0))
             {
-                g.DrawRectangle(BrushParams, StartX, StartY, length, length);
+                g.DrawRectangle(new Pen(colorParams, widthParams), StartX, StartY, length, length);
             }
         }
     }

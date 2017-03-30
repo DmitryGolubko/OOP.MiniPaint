@@ -7,6 +7,7 @@ using System.Drawing;
 
 namespace Paint.Figures
 {
+    [Serializable]
     public class Ellipse : Figure
     {
         public int A { get; set; }
@@ -30,7 +31,7 @@ namespace Paint.Figures
         public override void Draw(Graphics g)
         {
             GetParams();
-            g.DrawEllipse(BrushParams, StartX, StartY, (A-StartX), (B-StartY));
+            g.DrawEllipse(new Pen(colorParams, widthParams), StartX, StartY, (A-StartX), (B-StartY));
         }
     }
 }

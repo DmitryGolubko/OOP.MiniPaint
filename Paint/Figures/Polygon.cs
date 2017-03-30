@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace Paint.Figures
 {
+    [Serializable]
     class Polygon : Figure
     {
         private List<Point> DrawPoints;
@@ -21,9 +22,7 @@ namespace Paint.Figures
 
         public override bool GetParams()
         {
-            DrawPoints = new List<Point>();
-            
-            
+            DrawPoints = new List<Point>();            
             DrawPoints.Add(new Point(((Points[0].X + Points[Points.Count - 1].X) / 2), Points[0].Y));          //1 точкa
             SecondY = (int)((Points[Points.Count - 1].X - DrawPoints[0].X) * Math.Tan(36 * Math.PI / 180));
             DrawPoints.Add(new Point(Points[Points.Count - 1].X, Points[0].Y + SecondY));           //2 точка
@@ -39,7 +38,7 @@ namespace Paint.Figures
         public override void Draw(Graphics graphics)
         {
             GetParams();
-            graphics.DrawPolygon(BrushParams, DrawPoints.ToArray());  
+            graphics.DrawPolygon(new Pen(colorParams, widthParams), DrawPoints.ToArray());  
         }
     }
 }
