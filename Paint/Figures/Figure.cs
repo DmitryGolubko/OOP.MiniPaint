@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace Paint.Figures
 {
     [Serializable]
-    public abstract class Figure
+    public abstract class Figure : ISelectable
     {
         public List<Point> Points;
         public int StartX { get; set; }
@@ -36,5 +36,7 @@ namespace Paint.Figures
         public abstract bool GetParams();
 
         public abstract void Draw(Graphics graphics);
+
+        public abstract bool IsPointInFigure(Point point);
     }
 }

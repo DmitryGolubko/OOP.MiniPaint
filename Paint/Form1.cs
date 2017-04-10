@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ using System.Windows.Forms;
 using Paint.Figures;
 using System.Windows.Input;
 using System.IO;
-
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
 
@@ -23,14 +24,14 @@ namespace Paint
         private Figure figure;
         private Pen pen;
         public BinaryFormatter formatter;
-        //private Bitmap buffer;
 
         public Form1()
         {
-            InitializeComponent();
-            graphics = pictureBox1.CreateGraphics();
+            InitializeComponent(); 
             Figures = new List<Figure>();
             pen = new Pen(Color.Black, 1);
+            graphics = pictureBox1.CreateGraphics();
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -42,7 +43,6 @@ namespace Paint
             labelPenWidth.Text = "Толщина линий: " + trackBarPenWidth.Value.ToString();
             buttonSerialize.Enabled = false;
             buttonDeserialize.Enabled = true;
-            //buffer = new Bitmap((int)graphics.VisibleClipBounds.Width, (int)graphics.VisibleClipBounds.Height);
         }
                               
         private void DrawAll()
@@ -55,8 +55,7 @@ namespace Paint
 
         private void btnFigure_MouseDown(object sender, MouseEventArgs e)
         {
-            figure = new CreatorList().GetFigure(Int32.Parse((sender as Button).Tag.ToString()));
-
+            figure = new CreatorList().GetFigure(int.Parse((sender as Button).Tag.ToString()));
         }
 
         private void buttonChangeColor_Click(object sender, EventArgs e)
@@ -82,14 +81,34 @@ namespace Paint
                 Figures.Add(figure);
                 buttonSerialize.Enabled = true;
             }
+            else
+            {
+                for (int i = Figures.Count - 1; i >= 0; i--)
+                {
+                    if (Figures[i].IsPointInFigure(new Point(e.X, e.Y)))
+                    {
+                        DrawAll();
+                        Figures[i].colorParams = Color.Red;
+                        Figures[i].Draw(graphics);
+                        Figures[i].colorParams = pen.Color;
+                        break;
+                    }
+                    else
+                    {
+                        Figures[i].colorParams = pen.Color;
+                        Figures[i].Draw(graphics);
+
+                    }
+                }
+            } 
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             if ((figure != null) && (e.Button == MouseButtons.Left))
             {
-                figure.EndPoint(new Point(e.X, e.Y));
                 graphics.Clear(Color.White);
+                figure.EndPoint(new Point(e.X, e.Y));
                 figure.Draw(graphics);
                 DrawAll();
             }
@@ -98,10 +117,10 @@ namespace Paint
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             if (figure != null)
-            { 
-                DrawAll();
+            {
                 figure.EndPoint(new Point(e.X, e.Y));
                 figure.Draw(graphics);
+                DrawAll();
             }
             figure = null;
         }
@@ -140,10 +159,18 @@ namespace Paint
             var formatter = new BinaryFormatter();
             openFileDialog1.ShowDialog();
             using (var fStream = File.OpenRead(openFileDialog1.FileName))
-            {
-                Figures = new List<Figure>();
-                Figures = (List<Figure>)formatter.Deserialize(fStream);
-                DrawAll();    
+            {   
+                try
+                {
+                    Figures = new List<Figure>();
+                    Figures = (List<Figure>)formatter.Deserialize(fStream);
+                    DrawAll();
+                }
+                catch(SerializationException g)
+                {
+                    MessageBox.Show(g.Message);
+                }
+                   
             }
         }
     }

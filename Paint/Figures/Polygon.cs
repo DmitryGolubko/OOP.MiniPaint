@@ -33,12 +33,15 @@ namespace Paint.Figures
             return true;
         }
 
-       
-
         public override void Draw(Graphics graphics)
         {
             GetParams();
             graphics.DrawPolygon(new Pen(colorParams, widthParams), DrawPoints.ToArray());  
+        }
+
+        public override bool IsPointInFigure(Point point)
+        {
+            return false;
         }
     }
 }

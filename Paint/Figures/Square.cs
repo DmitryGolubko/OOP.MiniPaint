@@ -46,5 +46,10 @@ namespace Paint.Figures
                 g.DrawRectangle(new Pen(colorParams, widthParams), StartX, StartY, length, length);
             }
         }
+
+        public override bool IsPointInFigure(Point point)
+        {
+            return (point.X > StartX && point.X < StartX + length && point.Y > StartY && point.Y < StartY + length);
+        }
     }
 }

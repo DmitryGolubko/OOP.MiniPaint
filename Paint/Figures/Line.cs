@@ -10,8 +10,8 @@ namespace Paint.Figures
     [Serializable]
     public class Line : Figure
     {
-        public int EndX;
-        public int EndY;
+        private int EndX;
+        private int EndY;
 
         public Line()
         {
@@ -31,6 +31,11 @@ namespace Paint.Figures
         {   
             GetParams();
             g.DrawLine(new Pen(colorParams, widthParams), StartX, StartY, EndX, EndY);
+        }
+
+        public override bool IsPointInFigure(Point point)
+        {
+            return false;
         }
     }
 }

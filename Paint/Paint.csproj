@@ -57,6 +57,7 @@
     <Compile Include="Figures\CreatorSquare.cs" />
     <Compile Include="Figures\Ellipse.cs" />
     <Compile Include="Figures\Figure.cs" />
+    <Compile Include="Figures\ISelectable.cs" />
     <Compile Include="Figures\Line.cs" />
     <Compile Include="Figures\Polygon.cs" />
     <Compile Include="Figures\Rectangle.cs" />
@@ -81,6 +82,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram2.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

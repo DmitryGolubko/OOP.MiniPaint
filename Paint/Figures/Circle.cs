@@ -19,31 +19,38 @@ namespace Paint.Figures
         {
             StartX = Points[0].X;
             StartY = Points[0].Y;
-            A = Points[Points.Count - 1].X;
-            B = Points[Points.Count - 1].Y;
-            diameter = (Math.Abs(StartX - A) + Math.Abs(StartY - B)) / 2;
+            EndX = Points[Points.Count - 1].X;
+            EndY = Points[Points.Count - 1].Y;
+            CenterX = StartX + ((EndX - StartX) / 2);
+            CenterY = StartY + ((EndY - StartY) / 2);
+            diameter = (Math.Abs(StartX - EndX) + Math.Abs(StartY - EndY)) / 2;
             return true;
         }
 
         public override void Draw(Graphics g)
         {
             GetParams();
-            if (((StartX - A) > 0) && ((StartY - A) > 0))       //works
+            if (((StartX - EndX) > 0) && ((StartY - EndX) > 0))       //works
             {
-                g.DrawEllipse(new Pen(colorParams, widthParams), StartX - (StartX - A), StartY - (StartY - B), diameter, diameter);
+                g.DrawEllipse(new Pen(colorParams, widthParams), StartX - (StartX - EndX), StartY - (StartY - EndY), diameter, diameter);
             }
-            if (((StartX - A) > 0) && ((StartY - A) < 0))
+            if (((StartX - EndX) > 0) && ((StartY - EndX) < 0))
             {
-                g.DrawEllipse(new Pen(colorParams, widthParams), StartX - (StartX - A), StartY, diameter, diameter);
+                g.DrawEllipse(new Pen(colorParams, widthParams), StartX - (StartX - EndX), StartY, diameter, diameter);
             }
-            if (((StartX - A) < 0) && ((StartY - A) > 0))
+            if (((StartX - EndX) < 0) && ((StartY - EndX) > 0))
             {
-                g.DrawEllipse(new Pen(colorParams, widthParams), StartX, StartY - (StartY - B), diameter, diameter);
+                g.DrawEllipse(new Pen(colorParams, widthParams), StartX, StartY - (StartY - EndY), diameter, diameter);
             }
-            if (((StartX - A) < 0) && ((StartY - A) < 0))           //работает
+            if (((StartX - EndX) < 0) && ((StartY - EndX) < 0))           //works
             {
                 g.DrawEllipse(new Pen(colorParams, widthParams), StartX, StartY, diameter, diameter);
             }
+        }
+
+        public override bool IsPointInFigure(Point point)
+        {
+            return ((Math.Pow((point.X - CenterX), 2) + (Math.Pow((point.Y - CenterY), 2))) <= Math.Pow((diameter / 2), 2));
         }
     }
 }

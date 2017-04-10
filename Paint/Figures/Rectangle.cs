@@ -46,6 +46,11 @@ namespace Paint.Figures
             B = Points[Points.Count - 1].Y;
             return true;
         }
+
+        public override bool IsPointInFigure(Point point)
+        {
+            return (point.X > StartX && point.X < A && point.Y > StartY && point.Y < B);
+        }
     }
 }
 
