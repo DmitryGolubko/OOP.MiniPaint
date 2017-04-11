@@ -17,20 +17,19 @@ namespace Paint.Figures
 
         public Polygon()
         {
-            Points = new List<Point>();
         }
 
-        public override bool GetParams()
+        public override void GetParams()
         {
+            base.GetParams();
             DrawPoints = new List<Point>();            
-            DrawPoints.Add(new Point(((Points[0].X + Points[Points.Count - 1].X) / 2), Points[0].Y));          //1 точкa
-            SecondY = (int)((Points[Points.Count - 1].X - DrawPoints[0].X) * Math.Tan(36 * Math.PI / 180));
-            DrawPoints.Add(new Point(Points[Points.Count - 1].X, Points[0].Y + SecondY));           //2 точка
-            ThirdX = (int)((Points[Points.Count - 1].Y - SecondY) * Math.Tan(18 * Math.PI / 180));
-            DrawPoints.Add(new Point(Points[Points.Count - 1].X - ThirdX, Points[Points.Count - 1].Y)); //3 точка
-            DrawPoints.Add(new Point(Points[0].X + ThirdX, Points[Points.Count - 1].Y));//4 dot
-            DrawPoints.Add(new Point(Points[0].X, Points[0].Y + SecondY));  //5 dot
-            return true;
+            DrawPoints.Add(new Point(((StartX + EndX) / 2), StartY));          //1 точкa
+            SecondY = (int)((EndX - DrawPoints[0].X) * Math.Tan(36 * Math.PI / 180));
+            DrawPoints.Add(new Point(EndX, StartY + SecondY));           //2 точка
+            ThirdX = (int)((EndY - SecondY) * Math.Tan(18 * Math.PI / 180));
+            DrawPoints.Add(new Point(EndX - ThirdX, EndY)); //3 точка
+            DrawPoints.Add(new Point(StartX + ThirdX, EndY));//4 dot
+            DrawPoints.Add(new Point(StartX, StartY + SecondY));  //5 dot
         }
 
         public override void Draw(Graphics graphics)

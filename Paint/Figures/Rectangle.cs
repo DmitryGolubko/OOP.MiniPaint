@@ -10,9 +10,6 @@ namespace Paint.Figures
     [Serializable]
     public class Rectangle : Figure
     {
-        public int A { get; set; }
-        public int B { get; set; }
-
         public Rectangle()
         {
         }
@@ -20,36 +17,27 @@ namespace Paint.Figures
         public override void Draw(Graphics g)
         { 
             GetParams();
-            if (((StartX - A) > 0) && ((StartY - B) > 0))
+            if (((StartX - EndX) > 0) && ((StartY - EndY) > 0))
             {
-                g.DrawRectangle(new Pen(colorParams, widthParams), StartX - (StartX - A), StartY - (StartY - B), StartX - A, StartY - B);
+                g.DrawRectangle(new Pen(colorParams, widthParams), StartX - (StartX - EndX), StartY - (StartY - EndY), StartX - EndX, StartY - EndY);
             }
-            if (((StartX - A) > 0) && ((StartY - B) < 0))
+            if (((StartX - EndX) > 0) && ((StartY - EndY) < 0))
             {
-                g.DrawRectangle(new Pen(colorParams, widthParams), StartX - (StartX - A), StartY, StartX - A, B - StartY);
+                g.DrawRectangle(new Pen(colorParams, widthParams), StartX - (StartX - EndX), StartY, StartX - EndX, EndY - StartY);
             }
-            if (((StartX - A) < 0) && ((StartY - B) > 0))
+            if (((StartX - EndX) < 0) && ((StartY - EndY) > 0))
             {
-                g.DrawRectangle(new Pen(colorParams, widthParams), StartX, StartY - (StartY - B), A - StartX, StartY - B);
+                g.DrawRectangle(new Pen(colorParams, widthParams), StartX, StartY - (StartY - EndY), EndX - StartX, StartY - EndY);
             }
-            if (((StartX - A) < 0) && ((StartY - B) < 0))
+            if (((StartX - EndX) < 0) && ((StartY - EndY) < 0))
             {
-                g.DrawRectangle(new Pen(colorParams, widthParams), StartX, StartY, A - StartX, B - StartY);
+                g.DrawRectangle(new Pen(colorParams, widthParams), StartX, StartY, EndX - StartX, EndY - StartY);
             }
-        }
-
-        public override bool GetParams()
-        {
-            StartX = Points[0].X;
-            StartY = Points[0].Y;
-            A = Points[Points.Count - 1].X;
-            B = Points[Points.Count - 1].Y;
-            return true;
         }
 
         public override bool IsPointInFigure(Point point)
         {
-            return (point.X > StartX && point.X < A && point.Y > StartY && point.Y < B);
+            return (point.X > StartX && point.X < EndX && point.Y > StartY && point.Y < EndY);
         }
     }
 }

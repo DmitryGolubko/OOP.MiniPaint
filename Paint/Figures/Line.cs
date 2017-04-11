@@ -10,21 +10,9 @@ namespace Paint.Figures
     [Serializable]
     public class Line : Figure
     {
-        private int EndX;
-        private int EndY;
-
         public Line()
         {
           
-        }
-
-        public override bool GetParams()
-        {
-            StartX = Points[0].X;
-            StartY = Points[0].Y;
-            EndX = Points[Points.Count - 1].X;
-            EndY = Points[Points.Count - 1].Y;
-            return true;
         }
 
         public override void Draw(Graphics g)

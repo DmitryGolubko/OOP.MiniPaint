@@ -24,6 +24,7 @@ namespace Paint
         private Figure figure;
         private Pen pen;
         public BinaryFormatter formatter;
+        private Figure selectedFigure;
 
         public Form1()
         {
@@ -31,7 +32,6 @@ namespace Paint
             Figures = new List<Figure>();
             pen = new Pen(Color.Black, 1);
             graphics = pictureBox1.CreateGraphics();
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -43,6 +43,7 @@ namespace Paint
             labelPenWidth.Text = "Толщина линий: " + trackBarPenWidth.Value.ToString();
             buttonSerialize.Enabled = false;
             buttonDeserialize.Enabled = true;
+            selectedFigure = null;
         }
                               
         private void DrawAll()
@@ -80,6 +81,7 @@ namespace Paint
                 figure.widthParams = pen.Width;
                 Figures.Add(figure);
                 buttonSerialize.Enabled = true;
+                selectedFigure = null;
             }
             else
             {
@@ -90,14 +92,16 @@ namespace Paint
                         DrawAll();
                         Figures[i].colorParams = Color.Red;
                         Figures[i].Draw(graphics);
+                        selectedFigure = Figures[i];
                         Figures[i].colorParams = pen.Color;
                         break;
                     }
                     else
                     {
+                        DrawAll();
                         Figures[i].colorParams = pen.Color;
                         Figures[i].Draw(graphics);
-
+                        selectedFigure = null;
                     }
                 }
             } 
@@ -105,6 +109,7 @@ namespace Paint
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
+            
             if ((figure != null) && (e.Button == MouseButtons.Left))
             {
                 graphics.Clear(Color.White);
@@ -112,10 +117,14 @@ namespace Paint
                 figure.Draw(graphics);
                 DrawAll();
             }
+            if ((selectedFigure != null) && (e.Button == MouseButtons.Left))
+            {
+            }
         }
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
+            
             if (figure != null)
             {
                 figure.EndPoint(new Point(e.X, e.Y));
@@ -123,6 +132,7 @@ namespace Paint
                 DrawAll();
             }
             figure = null;
+            
         }
 
         private void buttonClear_Click(object sender, EventArgs e)

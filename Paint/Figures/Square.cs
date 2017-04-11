@@ -16,32 +16,28 @@ namespace Paint.Figures
         {
         }
 
-        public override bool GetParams()
+        public override void GetParams()
         {
-            StartX = Points[0].X;
-            StartY = Points[0].Y;
-            A = Points[Points.Count - 1].X;
-            B = Points[Points.Count - 1].Y;
-            length = (Math.Abs(StartX - A) + Math.Abs(StartY - B))/2;
-            return true;
+            base.GetParams();
+            length = (Math.Abs(StartX - EndX) + Math.Abs(StartY - EndY))/2;
         }
 
         public override void Draw(Graphics g)
         {
             GetParams();
-            if (((StartX - A) > 0) && ((StartY - B) > 0))
+            if (((StartX - EndX) > 0) && ((StartY - EndY) > 0))
             {
-                g.DrawRectangle(new Pen(colorParams, widthParams), StartX - (StartX - A), StartY - (StartY - B), length, length);
+                g.DrawRectangle(new Pen(colorParams, widthParams), StartX - (StartX - EndX), StartY - (StartY - EndY), length, length);
             }
-            if (((StartX - A) > 0) && ((StartY - B) < 0))
+            if (((StartX - EndX) > 0) && ((StartY - EndY) < 0))
             {
-                g.DrawRectangle(new Pen(colorParams, widthParams), StartX - (StartX - A), StartY, length, length);
+                g.DrawRectangle(new Pen(colorParams, widthParams), StartX - (StartX - EndX), StartY, length, length);
             }
-            if (((StartX - A) < 0) && ((StartY - B) > 0))
+            if (((StartX - EndX) < 0) && ((StartY - EndY) > 0))
             {
-                g.DrawRectangle(new Pen(colorParams, widthParams), StartX, StartY - (StartY - B), length, length);
+                g.DrawRectangle(new Pen(colorParams, widthParams), StartX, StartY - (StartY - EndY), length, length);
             }
-            if (((StartX - A) < 0) && ((StartY - B) < 0))
+            if (((StartX - EndX) < 0) && ((StartY - EndY) < 0))
             {
                 g.DrawRectangle(new Pen(colorParams, widthParams), StartX, StartY, length, length);
             }

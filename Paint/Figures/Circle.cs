@@ -15,16 +15,12 @@ namespace Paint.Figures
         {
         }
 
-        public override bool GetParams()
+        public override void  GetParams()
         {
-            StartX = Points[0].X;
-            StartY = Points[0].Y;
-            EndX = Points[Points.Count - 1].X;
-            EndY = Points[Points.Count - 1].Y;
+            base.GetParams();
             CenterX = StartX + ((EndX - StartX) / 2);
             CenterY = StartY + ((EndY - StartY) / 2);
             diameter = (Math.Abs(StartX - EndX) + Math.Abs(StartY - EndY)) / 2;
-            return true;
         }
 
         public override void Draw(Graphics g)

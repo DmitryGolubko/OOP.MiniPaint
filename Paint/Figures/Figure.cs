@@ -14,6 +14,8 @@ namespace Paint.Figures
         public List<Point> Points;
         public int StartX { get; set; }
         public int StartY { get; set; }
+        public int EndX { get; set; }
+        public int EndY { get; set; }
         public Color colorParams { get; set; }
         public float widthParams { get; set; }
 
@@ -33,7 +35,13 @@ namespace Paint.Figures
             Points[Points.Count - 1] = p;
         }
 
-        public abstract bool GetParams();
+        public virtual void GetParams()
+        {
+            StartX = Points[0].X;
+            StartY = Points[0].Y;
+            EndX = Points[Points.Count - 1].X;
+            EndY = Points[Points.Count - 1].Y;
+        }
 
         public abstract void Draw(Graphics graphics);
 
