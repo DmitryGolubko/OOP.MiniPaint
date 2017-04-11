@@ -24,6 +24,12 @@ namespace Paint.Figures
             Points = new List<Point>(0);
         }
 
+        public void StartPoint(Point p)
+        {
+            Points.Clear();
+            AddPoint(p);
+        }
+
         public void AddPoint(Point p)
         {
             Points.Add(p);

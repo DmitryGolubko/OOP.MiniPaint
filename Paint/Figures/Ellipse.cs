@@ -20,6 +20,7 @@ namespace Paint.Figures
 
         public override void GetParams()
         {
+
             base.GetParams();
             CenterX = StartX + ((EndX - StartX) / 2);
             CenterY = StartY + ((EndY - StartY) / 2);

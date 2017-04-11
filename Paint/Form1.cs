@@ -24,12 +24,15 @@ namespace Paint
         private Figure figure;
         private Pen pen;
         public BinaryFormatter formatter;
-        private Figure selectedFigure;
+        public Figure selectedFigure;
+        private Point currentPoint;
+        private List<Point> MovingPoints;
 
         public Form1()
         {
             InitializeComponent(); 
             Figures = new List<Figure>();
+            MovingPoints = new List<Point>();
             pen = new Pen(Color.Black, 1);
             graphics = pictureBox1.CreateGraphics();
         }
@@ -74,9 +77,11 @@ namespace Paint
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
+            currentPoint = new Point(e.X, e.Y);
+            MovingPoints.Add(currentPoint);
             if (figure != null)
             {
-                figure.AddPoint(new Point(e.X, e.Y));
+                figure.AddPoint(currentPoint);
                 figure.colorParams = pen.Color;
                 figure.widthParams = pen.Width;
                 Figures.Add(figure);
@@ -87,13 +92,15 @@ namespace Paint
             {
                 for (int i = Figures.Count - 1; i >= 0; i--)
                 {
-                    if (Figures[i].IsPointInFigure(new Point(e.X, e.Y)))
+                    if (Figures[i].IsPointInFigure(currentPoint))
                     {
                         DrawAll();
                         Figures[i].colorParams = Color.Red;
                         Figures[i].Draw(graphics);
                         selectedFigure = Figures[i];
-                        Figures[i].colorParams = pen.Color;
+                        selectedFigure.Points[0] = currentPoint;
+                        //selectedFigureIndex = i;
+                        //Figures[i].colorParams = pen.Color;
                         break;
                     }
                     else
@@ -109,30 +116,47 @@ namespace Paint
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            
+            var movePoint = new Point(e.X, e.Y);
+            MovingPoints.Add(movePoint);
             if ((figure != null) && (e.Button == MouseButtons.Left))
             {
                 graphics.Clear(Color.White);
-                figure.EndPoint(new Point(e.X, e.Y));
+                figure.EndPoint(movePoint);
                 figure.Draw(graphics);
                 DrawAll();
             }
             if ((selectedFigure != null) && (e.Button == MouseButtons.Left))
             {
+                graphics.Clear(Color.White);
+                selectedFigure.colorParams = Color.Red;
+                selectedFigure.StartPoint(new Point((selectedFigure.StartX - (MovingPoints[MovingPoints.Count - 2].X - MovingPoints[MovingPoints.Count - 1].X)), selectedFigure.StartY - (MovingPoints[MovingPoints.Count - 2].Y - MovingPoints[MovingPoints.Count - 1].Y)));
+                selectedFigure.EndPoint(new Point((selectedFigure.EndX - (MovingPoints[MovingPoints.Count - 2].X - MovingPoints[MovingPoints.Count - 1].X)), selectedFigure.EndY - (MovingPoints[MovingPoints.Count - 2].Y - MovingPoints[MovingPoints.Count - 1].Y)));
+                selectedFigure.Draw(graphics);
+                DrawAll();
             }
         }
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            
+            var UpPoint = new Point(e.X, e.Y);
+            MovingPoints.Add(UpPoint);
             if (figure != null)
             {
                 figure.EndPoint(new Point(e.X, e.Y));
-                figure.Draw(graphics);
-                DrawAll();
+                figure.Draw(graphics); 
             }
+            if ((selectedFigure != null) && (e.Button == MouseButtons.Left))
+            {
+                graphics.Clear(Color.White);
+                selectedFigure.colorParams = Color.Red;
+                selectedFigure.StartPoint(new Point((selectedFigure.StartX - (MovingPoints[MovingPoints.Count - 2].X - MovingPoints[MovingPoints.Count - 1].X)), selectedFigure.StartY - (MovingPoints[MovingPoints.Count - 2].Y - MovingPoints[MovingPoints.Count - 1].Y)));
+                selectedFigure.EndPoint(new Point((selectedFigure.EndX - (MovingPoints[MovingPoints.Count - 2].X - MovingPoints[MovingPoints.Count - 1].X)), selectedFigure.EndY - (MovingPoints[MovingPoints.Count - 2].Y - MovingPoints[MovingPoints.Count - 1].Y)));
+                selectedFigure.colorParams = pen.Color;
+                selectedFigure.Draw(graphics); 
+            }
+            DrawAll();
             figure = null;
-            
+            selectedFigure = null;    
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
