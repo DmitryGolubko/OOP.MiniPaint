@@ -38,5 +38,36 @@ namespace Paint.Figures
             graphics.DrawPolygon(new Pen(colorParams, widthParams), DrawPoints.ToArray());  
         }
 
+        public override bool IsPointInFigure(Point point)
+        {
+            int Intersections = 0;
+            int Prev = (int)DrawPoints.LongCount() - 1;
+            bool PrevUnder = DrawPoints[Prev].Y < point.Y;
+
+            for (int i = 0; i < DrawPoints.LongCount(); i++)
+            {
+                bool CurUnder = DrawPoints[i].Y < point.Y;
+
+                Point A = new Point(DrawPoints[Prev].X - point.X, DrawPoints[Prev].Y - point.Y);
+                Point B = new Point(DrawPoints[i].X - point.X, DrawPoints[i].Y - point.Y);
+
+                float T = (A.X * (B.Y - A.Y) - A.Y * (B.X - A.X));
+                if (CurUnder && !PrevUnder)
+                {
+                    if (T > 0)
+                        Intersections++;
+                }
+                if (!CurUnder && PrevUnder)
+                {
+                    if (T < 0)
+                        Intersections++;
+                }
+
+                Prev = i;
+                PrevUnder = CurUnder;
+            }
+
+            return Intersections % 2 != 0;
+        }
     }
 }
