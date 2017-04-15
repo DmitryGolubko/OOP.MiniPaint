@@ -11,7 +11,7 @@ namespace Paint.Figures
     [Serializable]
     class Polygon : Figure
     {
-        private List<Point> DrawPoints;
+        public List<Point> DrawPoints;
         private int SecondY;
         private int ThirdX;
 
@@ -38,9 +38,5 @@ namespace Paint.Figures
             graphics.DrawPolygon(new Pen(colorParams, widthParams), DrawPoints.ToArray());  
         }
 
-        public override bool IsPointInFigure(Point point)
-        {
-            return false;
-        }
     }
 }

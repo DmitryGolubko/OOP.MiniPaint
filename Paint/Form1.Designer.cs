@@ -46,6 +46,7 @@
             this.buttonDeserialize = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.TrianlgeButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPenWidth)).BeginInit();
@@ -56,7 +57,7 @@
             // 
             this.EllipseButton.Location = new System.Drawing.Point(6, 21);
             this.EllipseButton.Name = "EllipseButton";
-            this.EllipseButton.Size = new System.Drawing.Size(173, 42);
+            this.EllipseButton.Size = new System.Drawing.Size(173, 48);
             this.EllipseButton.TabIndex = 0;
             this.EllipseButton.Tag = "0";
             this.EllipseButton.Text = "Эллипс";
@@ -65,9 +66,9 @@
             // 
             // CircleButton
             // 
-            this.CircleButton.Location = new System.Drawing.Point(185, 21);
+            this.CircleButton.Location = new System.Drawing.Point(186, 21);
             this.CircleButton.Name = "CircleButton";
-            this.CircleButton.Size = new System.Drawing.Size(173, 42);
+            this.CircleButton.Size = new System.Drawing.Size(173, 48);
             this.CircleButton.TabIndex = 1;
             this.CircleButton.Tag = "1";
             this.CircleButton.Text = "Круг";
@@ -76,9 +77,9 @@
             // 
             // RectangleButton
             // 
-            this.RectangleButton.Location = new System.Drawing.Point(6, 69);
+            this.RectangleButton.Location = new System.Drawing.Point(6, 75);
             this.RectangleButton.Name = "RectangleButton";
-            this.RectangleButton.Size = new System.Drawing.Size(173, 42);
+            this.RectangleButton.Size = new System.Drawing.Size(173, 48);
             this.RectangleButton.TabIndex = 2;
             this.RectangleButton.Tag = "2";
             this.RectangleButton.Text = "Прямоугольник";
@@ -87,9 +88,9 @@
             // 
             // SquareButton
             // 
-            this.SquareButton.Location = new System.Drawing.Point(185, 69);
+            this.SquareButton.Location = new System.Drawing.Point(186, 75);
             this.SquareButton.Name = "SquareButton";
-            this.SquareButton.Size = new System.Drawing.Size(173, 42);
+            this.SquareButton.Size = new System.Drawing.Size(173, 48);
             this.SquareButton.TabIndex = 3;
             this.SquareButton.Tag = "3";
             this.SquareButton.Text = "Квадрат";
@@ -98,9 +99,9 @@
             // 
             // LineButton
             // 
-            this.LineButton.Location = new System.Drawing.Point(6, 117);
+            this.LineButton.Location = new System.Drawing.Point(6, 129);
             this.LineButton.Name = "LineButton";
-            this.LineButton.Size = new System.Drawing.Size(173, 42);
+            this.LineButton.Size = new System.Drawing.Size(173, 48);
             this.LineButton.TabIndex = 4;
             this.LineButton.Tag = "4";
             this.LineButton.Text = "Линия";
@@ -109,9 +110,9 @@
             // 
             // PolygonButton
             // 
-            this.PolygonButton.Location = new System.Drawing.Point(185, 117);
+            this.PolygonButton.Location = new System.Drawing.Point(186, 129);
             this.PolygonButton.Name = "PolygonButton";
-            this.PolygonButton.Size = new System.Drawing.Size(173, 42);
+            this.PolygonButton.Size = new System.Drawing.Size(173, 48);
             this.PolygonButton.TabIndex = 5;
             this.PolygonButton.Tag = "5";
             this.PolygonButton.Text = "Пятиугольник";
@@ -120,6 +121,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.TrianlgeButton);
             this.groupBox1.Controls.Add(this.EllipseButton);
             this.groupBox1.Controls.Add(this.LineButton);
             this.groupBox1.Controls.Add(this.PolygonButton);
@@ -129,7 +131,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(365, 173);
+            this.groupBox1.Size = new System.Drawing.Size(365, 239);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Выбор фигуры";
@@ -137,7 +139,7 @@
             // buttonChangeColor
             // 
             this.buttonChangeColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonChangeColor.Location = new System.Drawing.Point(18, 195);
+            this.buttonChangeColor.Location = new System.Drawing.Point(18, 294);
             this.buttonChangeColor.Name = "buttonChangeColor";
             this.buttonChangeColor.Size = new System.Drawing.Size(173, 42);
             this.buttonChangeColor.TabIndex = 7;
@@ -147,7 +149,7 @@
             // 
             // pictureBoxColor
             // 
-            this.pictureBoxColor.Location = new System.Drawing.Point(197, 195);
+            this.pictureBoxColor.Location = new System.Drawing.Point(197, 294);
             this.pictureBoxColor.Name = "pictureBoxColor";
             this.pictureBoxColor.Size = new System.Drawing.Size(173, 42);
             this.pictureBoxColor.TabIndex = 8;
@@ -156,7 +158,7 @@
             // trackBarPenWidth
             // 
             this.trackBarPenWidth.LargeChange = 2;
-            this.trackBarPenWidth.Location = new System.Drawing.Point(18, 272);
+            this.trackBarPenWidth.Location = new System.Drawing.Point(18, 371);
             this.trackBarPenWidth.Minimum = 1;
             this.trackBarPenWidth.Name = "trackBarPenWidth";
             this.trackBarPenWidth.Size = new System.Drawing.Size(352, 56);
@@ -168,7 +170,7 @@
             // 
             this.labelPenWidth.AutoSize = true;
             this.labelPenWidth.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelPenWidth.Location = new System.Drawing.Point(14, 249);
+            this.labelPenWidth.Location = new System.Drawing.Point(14, 348);
             this.labelPenWidth.Name = "labelPenWidth";
             this.labelPenWidth.Size = new System.Drawing.Size(138, 20);
             this.labelPenWidth.TabIndex = 10;
@@ -189,7 +191,7 @@
             // buttonClear
             // 
             this.buttonClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonClear.Location = new System.Drawing.Point(18, 313);
+            this.buttonClear.Location = new System.Drawing.Point(18, 412);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(173, 42);
             this.buttonClear.TabIndex = 13;
@@ -200,7 +202,7 @@
             // buttonSerialize
             // 
             this.buttonSerialize.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSerialize.Location = new System.Drawing.Point(18, 361);
+            this.buttonSerialize.Location = new System.Drawing.Point(18, 460);
             this.buttonSerialize.Name = "buttonSerialize";
             this.buttonSerialize.Size = new System.Drawing.Size(173, 42);
             this.buttonSerialize.TabIndex = 14;
@@ -211,7 +213,7 @@
             // buttonDeserialize
             // 
             this.buttonDeserialize.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonDeserialize.Location = new System.Drawing.Point(197, 361);
+            this.buttonDeserialize.Location = new System.Drawing.Point(197, 460);
             this.buttonDeserialize.Name = "buttonDeserialize";
             this.buttonDeserialize.Size = new System.Drawing.Size(173, 42);
             this.buttonDeserialize.TabIndex = 15;
@@ -222,6 +224,17 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // TrianlgeButton
+            // 
+            this.TrianlgeButton.Location = new System.Drawing.Point(6, 183);
+            this.TrianlgeButton.Name = "TrianlgeButton";
+            this.TrianlgeButton.Size = new System.Drawing.Size(173, 48);
+            this.TrianlgeButton.TabIndex = 6;
+            this.TrianlgeButton.Tag = "6";
+            this.TrianlgeButton.Text = "Треугольник";
+            this.TrianlgeButton.UseVisualStyleBackColor = true;
+            this.TrianlgeButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnFigure_MouseDown);
             // 
             // Form1
             // 
@@ -271,6 +284,7 @@
         private System.Windows.Forms.Button buttonDeserialize;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button TrianlgeButton;
     }
 }
 

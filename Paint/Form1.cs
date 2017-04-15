@@ -27,6 +27,8 @@ namespace Paint
         public Figure selectedFigure;
         private Point currentPoint;
         private List<Point> MovingPoints;
+        private Color figureColor;
+        private bool moving;
 
         public Form1()
         {
@@ -47,6 +49,7 @@ namespace Paint
             buttonSerialize.Enabled = false;
             buttonDeserialize.Enabled = true;
             selectedFigure = null;
+            moving = false;
         }
                               
         private void DrawAll()
@@ -90,17 +93,17 @@ namespace Paint
             }
             else
             {
+                moving = false;
                 for (int i = Figures.Count - 1; i >= 0; i--)
                 {
                     if (Figures[i].IsPointInFigure(currentPoint))
                     {
                         DrawAll();
-                        Figures[i].colorParams = Color.Red;
-                        Figures[i].Draw(graphics);
                         selectedFigure = Figures[i];
+                        figureColor = selectedFigure.colorParams;
+                        selectedFigure.colorParams = Color.Red;
+                        selectedFigure.Draw(graphics);
                         selectedFigure.Points[0] = currentPoint;
-                        //selectedFigureIndex = i;
-                        //Figures[i].colorParams = pen.Color;
                         break;
                     }
                     else
@@ -127,6 +130,7 @@ namespace Paint
             }
             if ((selectedFigure != null) && (e.Button == MouseButtons.Left))
             {
+                moving = true;
                 graphics.Clear(Color.White);
                 selectedFigure.colorParams = Color.Red;
                 selectedFigure.StartPoint(new Point((selectedFigure.StartX - (MovingPoints[MovingPoints.Count - 2].X - MovingPoints[MovingPoints.Count - 1].X)), selectedFigure.StartY - (MovingPoints[MovingPoints.Count - 2].Y - MovingPoints[MovingPoints.Count - 1].Y)));
@@ -151,12 +155,17 @@ namespace Paint
                 selectedFigure.colorParams = Color.Red;
                 selectedFigure.StartPoint(new Point((selectedFigure.StartX - (MovingPoints[MovingPoints.Count - 2].X - MovingPoints[MovingPoints.Count - 1].X)), selectedFigure.StartY - (MovingPoints[MovingPoints.Count - 2].Y - MovingPoints[MovingPoints.Count - 1].Y)));
                 selectedFigure.EndPoint(new Point((selectedFigure.EndX - (MovingPoints[MovingPoints.Count - 2].X - MovingPoints[MovingPoints.Count - 1].X)), selectedFigure.EndY - (MovingPoints[MovingPoints.Count - 2].Y - MovingPoints[MovingPoints.Count - 1].Y)));
-                selectedFigure.colorParams = pen.Color;
-                selectedFigure.Draw(graphics); 
+                if (moving)
+                {
+                    selectedFigure.colorParams = figureColor;
+                    selectedFigure.Draw(graphics);
+                    moving = false;
+                } 
             }
             DrawAll();
             figure = null;
-            selectedFigure = null;    
+            selectedFigure = null;
+            MovingPoints.Clear(); 
         }
 
         private void buttonClear_Click(object sender, EventArgs e)

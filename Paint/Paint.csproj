@@ -50,17 +50,20 @@
     <Compile Include="Figures\Creator.cs" />
     <Compile Include="Figures\CreatorCircle.cs" />
     <Compile Include="Figures\CreatorEllipse.cs" />
+    <Compile Include="Figures\CreatorTrianlge.cs" />
     <Compile Include="Figures\CreatorLine.cs" />
     <Compile Include="Figures\CreatorList.cs" />
     <Compile Include="Figures\CreatorPolygon.cs" />
     <Compile Include="Figures\CreatorRectangle.cs" />
     <Compile Include="Figures\CreatorSquare.cs" />
     <Compile Include="Figures\Ellipse.cs" />
+    <Compile Include="Figures\Trianlge.cs" />
     <Compile Include="Figures\Figure.cs" />
     <Compile Include="Figures\ISelectable.cs" />
     <Compile Include="Figures\Line.cs" />
     <Compile Include="Figures\Polygon.cs" />
     <Compile Include="Figures\Rectangle.cs" />
+    <Compile Include="Figures\RightTrianlge.cs" />
     <Compile Include="Figures\Square.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

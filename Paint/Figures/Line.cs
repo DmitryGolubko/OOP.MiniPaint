@@ -21,9 +21,5 @@ namespace Paint.Figures
             g.DrawLine(new Pen(colorParams, widthParams), StartX, StartY, EndX, EndY);
         }
 
-        public override bool IsPointInFigure(Point point)
-        {
-            return false;
-        }
     }
 }

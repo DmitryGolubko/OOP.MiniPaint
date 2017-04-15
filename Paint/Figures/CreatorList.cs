@@ -16,6 +16,7 @@ namespace Paint.Figures
             this.Add(new CreatorSquare());
             this.Add(new CreatorLine());
             this.Add(new CreatorPolygon());
+            this.Add(new CreatorTrianlge());
         }
 
         public Figure GetFigure(int figureID)

@@ -51,6 +51,9 @@ namespace Paint.Figures
 
         public abstract void Draw(Graphics graphics);
 
-        public abstract bool IsPointInFigure(Point point);
+        public virtual bool IsPointInFigure(Point point)
+        {
+            return false;
+        }
     }
 }
