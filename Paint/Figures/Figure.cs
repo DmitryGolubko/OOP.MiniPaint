@@ -49,7 +49,7 @@ namespace Paint.Figures
             EndY = Points[Points.Count - 1].Y;
         }
 
-        public abstract void Draw(Graphics graphics);
+        public abstract void Draw(Graphics graphics, Color color);
 
         public virtual bool IsPointInFigure(Point point)
         {

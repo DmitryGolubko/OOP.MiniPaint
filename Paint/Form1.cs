@@ -27,7 +27,6 @@ namespace Paint
         public Figure selectedFigure;
         private Point currentPoint;
         private List<Point> MovingPoints;
-        private Color figureColor;
         private bool moving;
 
         public Form1()
@@ -56,7 +55,7 @@ namespace Paint
         {
             for (int i = 0; i < Figures.Count; i++)
             {
-                Figures[i].Draw(graphics);
+                Figures[i].Draw(graphics, Figures[i].colorParams);
             }
         }
 
@@ -98,19 +97,16 @@ namespace Paint
                 {
                     if (Figures[i].IsPointInFigure(currentPoint))
                     {
-                        DrawAll();
+                        //DrawAll();
                         selectedFigure = Figures[i];
-                        figureColor = selectedFigure.colorParams;
-                        selectedFigure.colorParams = Color.Red;
-                        selectedFigure.Draw(graphics);
+                        selectedFigure.Draw(graphics, Color.Red);
                         selectedFigure.Points[0] = currentPoint;
                         break;
                     }
                     else
                     {
                         DrawAll();
-                        Figures[i].colorParams = pen.Color;
-                        Figures[i].Draw(graphics);
+                        //Figures[i].Draw(graphics, Figures[i].colorParams);
                         selectedFigure = null;
                     }
                 }
@@ -125,18 +121,24 @@ namespace Paint
             {
                 graphics.Clear(Color.White);
                 figure.EndPoint(movePoint);
-                figure.Draw(graphics);
+                figure.Draw(graphics, figure.colorParams);
                 DrawAll();
             }
             if ((selectedFigure != null) && (e.Button == MouseButtons.Left))
             {
                 moving = true;
                 graphics.Clear(Color.White);
-                selectedFigure.colorParams = Color.Red;
                 selectedFigure.StartPoint(new Point((selectedFigure.StartX - (MovingPoints[MovingPoints.Count - 2].X - MovingPoints[MovingPoints.Count - 1].X)), selectedFigure.StartY - (MovingPoints[MovingPoints.Count - 2].Y - MovingPoints[MovingPoints.Count - 1].Y)));
                 selectedFigure.EndPoint(new Point((selectedFigure.EndX - (MovingPoints[MovingPoints.Count - 2].X - MovingPoints[MovingPoints.Count - 1].X)), selectedFigure.EndY - (MovingPoints[MovingPoints.Count - 2].Y - MovingPoints[MovingPoints.Count - 1].Y)));
-                selectedFigure.Draw(graphics);
-                DrawAll();
+                //DrawAll();
+                for (int i = 0; i < Figures.Count; i++)
+                {
+                    if (Figures[i] != selectedFigure)
+                    {
+                        Figures[i].Draw(graphics, Figures[i].colorParams);
+                    } 
+                }
+                selectedFigure.Draw(graphics, Color.Red);
             }
         }
 
@@ -147,22 +149,23 @@ namespace Paint
             if (figure != null)
             {
                 figure.EndPoint(new Point(e.X, e.Y));
-                figure.Draw(graphics); 
+                figure.Draw(graphics, figure.colorParams);
+                DrawAll();
             }
             if ((selectedFigure != null) && (e.Button == MouseButtons.Left))
             {
                 graphics.Clear(Color.White);
-                selectedFigure.colorParams = Color.Red;
                 selectedFigure.StartPoint(new Point((selectedFigure.StartX - (MovingPoints[MovingPoints.Count - 2].X - MovingPoints[MovingPoints.Count - 1].X)), selectedFigure.StartY - (MovingPoints[MovingPoints.Count - 2].Y - MovingPoints[MovingPoints.Count - 1].Y)));
                 selectedFigure.EndPoint(new Point((selectedFigure.EndX - (MovingPoints[MovingPoints.Count - 2].X - MovingPoints[MovingPoints.Count - 1].X)), selectedFigure.EndY - (MovingPoints[MovingPoints.Count - 2].Y - MovingPoints[MovingPoints.Count - 1].Y)));
+                DrawAll();
+                selectedFigure.Draw(graphics, Color.Red);
                 if (moving)
                 {
-                    selectedFigure.colorParams = figureColor;
-                    selectedFigure.Draw(graphics);
+                    //DrawAll();
+                    //selectedFigure.Draw(graphics, selectedFigure.colorParams);
                     moving = false;
                 } 
             }
-            DrawAll();
             figure = null;
             selectedFigure = null;
             MovingPoints.Clear(); 
@@ -190,9 +193,12 @@ namespace Paint
             {
                 var formatter = new BinaryFormatter();
                 saveFileDialog1.ShowDialog();
-                using (var fStream = new FileStream(saveFileDialog1.FileName, FileMode.Create, FileAccess.Write, FileShare.None))
+                if (saveFileDialog1.FileName != "")
                 {
-                    formatter.Serialize(fStream, Figures);
+                    using (var fStream = new FileStream(saveFileDialog1.FileName, FileMode.Create, FileAccess.Write, FileShare.None))
+                    {
+                        formatter.Serialize(fStream, Figures);
+                    }
                 }
             }
         }
@@ -201,19 +207,21 @@ namespace Paint
         {
             var formatter = new BinaryFormatter();
             openFileDialog1.ShowDialog();
-            using (var fStream = File.OpenRead(openFileDialog1.FileName))
-            {   
-                try
+            if (openFileDialog1.FileName != "")
+            {
+                using (var fStream = File.OpenRead(openFileDialog1.FileName))
                 {
-                    Figures = new List<Figure>();
-                    Figures = (List<Figure>)formatter.Deserialize(fStream);
-                    DrawAll();
-                }
-                catch(SerializationException g)
-                {
-                    MessageBox.Show(g.Message);
-                }
-                   
+                    try
+                    {
+                        Figures = new List<Figure>();
+                        Figures = (List<Figure>)formatter.Deserialize(fStream);
+                        DrawAll();
+                    }
+                    catch (SerializationException g)
+                    {
+                        MessageBox.Show(g.Message);
+                    }
+                }  
             }
         }
     }

@@ -14,24 +14,24 @@ namespace Paint.Figures
         {
         }
 
-        public override void Draw(Graphics g)
+        public override void Draw(Graphics g, Color color)
         { 
             GetParams();
             if (((StartX - EndX) > 0) && ((StartY - EndY) > 0))
             {
-                g.DrawRectangle(new Pen(colorParams, widthParams), StartX - (StartX - EndX), StartY - (StartY - EndY), StartX - EndX, StartY - EndY);
+                g.DrawRectangle(new Pen(color, widthParams), StartX - (StartX - EndX), StartY - (StartY - EndY), StartX - EndX, StartY - EndY);
             }
             if (((StartX - EndX) > 0) && ((StartY - EndY) < 0))
             {
-                g.DrawRectangle(new Pen(colorParams, widthParams), StartX - (StartX - EndX), StartY, StartX - EndX, EndY - StartY);
+                g.DrawRectangle(new Pen(color, widthParams), StartX - (StartX - EndX), StartY, StartX - EndX, EndY - StartY);
             }
             if (((StartX - EndX) < 0) && ((StartY - EndY) > 0))
             {
-                g.DrawRectangle(new Pen(colorParams, widthParams), StartX, StartY - (StartY - EndY), EndX - StartX, StartY - EndY);
+                g.DrawRectangle(new Pen(color, widthParams), StartX, StartY - (StartY - EndY), EndX - StartX, StartY - EndY);
             }
             if (((StartX - EndX) < 0) && ((StartY - EndY) < 0))
             {
-                g.DrawRectangle(new Pen(colorParams, widthParams), StartX, StartY, EndX - StartX, EndY - StartY);
+                g.DrawRectangle(new Pen(color, widthParams), StartX, StartY, EndX - StartX, EndY - StartY);
             }
         }
 

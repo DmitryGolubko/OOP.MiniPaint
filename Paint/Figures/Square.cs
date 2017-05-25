@@ -22,24 +22,24 @@ namespace Paint.Figures
             length = (Math.Abs(StartX - EndX) + Math.Abs(StartY - EndY))/2;
         }
 
-        public override void Draw(Graphics g)
+        public override void Draw(Graphics g, Color color)
         {
             GetParams();
             if (((StartX - EndX) > 0) && ((StartY - EndY) > 0))
             {
-                g.DrawRectangle(new Pen(colorParams, widthParams), StartX - (StartX - EndX), StartY - (StartY - EndY), length, length);
+                g.DrawRectangle(new Pen(color, widthParams), StartX - (StartX - EndX), StartY - (StartY - EndY), length, length);
             }
             if (((StartX - EndX) > 0) && ((StartY - EndY) < 0))
             {
-                g.DrawRectangle(new Pen(colorParams, widthParams), StartX - (StartX - EndX), StartY, length, length);
+                g.DrawRectangle(new Pen(color, widthParams), StartX - (StartX - EndX), StartY, length, length);
             }
             if (((StartX - EndX) < 0) && ((StartY - EndY) > 0))
             {
-                g.DrawRectangle(new Pen(colorParams, widthParams), StartX, StartY - (StartY - EndY), length, length);
+                g.DrawRectangle(new Pen(color, widthParams), StartX, StartY - (StartY - EndY), length, length);
             }
             if (((StartX - EndX) < 0) && ((StartY - EndY) < 0))
             {
-                g.DrawRectangle(new Pen(colorParams, widthParams), StartX, StartY, length, length);
+                g.DrawRectangle(new Pen(color, widthParams), StartX, StartY, length, length);
             }
         }
 

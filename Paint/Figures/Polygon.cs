@@ -32,10 +32,10 @@ namespace Paint.Figures
             DrawPoints.Add(new Point(StartX, StartY + SecondY));  //5 dot
         }
 
-        public override void Draw(Graphics graphics)
+        public override void Draw(Graphics graphics, Color color)
         {
             GetParams();
-            graphics.DrawPolygon(new Pen(colorParams, widthParams), DrawPoints.ToArray());  
+            graphics.DrawPolygon(new Pen(color, widthParams), DrawPoints.ToArray());  
         }
 
         public override bool IsPointInFigure(Point point)

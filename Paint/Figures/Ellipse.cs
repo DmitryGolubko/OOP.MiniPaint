@@ -26,10 +26,10 @@ namespace Paint.Figures
             CenterY = StartY + ((EndY - StartY) / 2);
         }
 
-        public override void Draw(Graphics g)
+        public override void Draw(Graphics g, Color color)
         {
             GetParams();
-            g.DrawEllipse(new Pen(colorParams, widthParams), StartX, StartY, (EndX-StartX), (EndY-StartY));
+            g.DrawEllipse(new Pen(color, widthParams), StartX, StartY, (EndX-StartX), (EndY-StartY));
         }
 
         public override bool IsPointInFigure(Point point)
