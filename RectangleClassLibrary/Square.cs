@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using AbstractFigureClassLibrary;
 
 
-namespace Paint.Figures
+namespace RectangleClassLibrary
 {
     [Serializable]
     public class Square : Rectangle 
@@ -25,22 +26,22 @@ namespace Paint.Figures
         public override void Draw(Graphics g, Color color)
         {
             GetParams();
-            if (((StartX - EndX) > 0) && ((StartY - EndY) > 0))
-            {
-                g.DrawRectangle(new Pen(color, widthParams), StartX - (StartX - EndX), StartY - (StartY - EndY), length, length);
-            }
-            if (((StartX - EndX) > 0) && ((StartY - EndY) < 0))
-            {
-                g.DrawRectangle(new Pen(color, widthParams), StartX - (StartX - EndX), StartY, length, length);
-            }
-            if (((StartX - EndX) < 0) && ((StartY - EndY) > 0))
-            {
-                g.DrawRectangle(new Pen(color, widthParams), StartX, StartY - (StartY - EndY), length, length);
-            }
-            if (((StartX - EndX) < 0) && ((StartY - EndY) < 0))
-            {
+            //if (((StartX - EndX) > 0) && ((StartY - EndY) > 0))
+            //{
+            //    g.DrawRectangle(new Pen(color, widthParams), StartX - (StartX - EndX), StartY - (StartY - EndY), length, length);
+            //}
+            //if (((StartX - EndX) > 0) && ((StartY - EndY) < 0))
+            //{
+            //    g.DrawRectangle(new Pen(color, widthParams), StartX - (StartX - EndX), StartY, length, length);
+            //}
+            //if (((StartX - EndX) < 0) && ((StartY - EndY) > 0))
+            //{
+            //    g.DrawRectangle(new Pen(color, widthParams), StartX, StartY - (StartY - EndY), length, length);
+            //}
+            //if (((StartX - EndX) < 0) && ((StartY - EndY) < 0))
+            //{
                 g.DrawRectangle(new Pen(color, widthParams), StartX, StartY, length, length);
-            }
+            //}
         }
 
         public override bool IsPointInFigure(Point point)

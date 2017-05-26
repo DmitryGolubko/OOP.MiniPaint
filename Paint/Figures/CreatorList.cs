@@ -3,25 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AbstractFigureClassLibrary;
 
 namespace Paint.Figures
 {
-    class CreatorList: List<Creator>
+    class CreatorList: Dictionary<int, Creator>
     {
+        private int currentId = 0;
+
         public CreatorList()
         {
-            this.Add(new CreatorEllipse());
-            this.Add(new CreatorCircle());
-            this.Add(new CreatorRectangle());
-            this.Add(new CreatorSquare());
-            this.Add(new CreatorLine());
-            this.Add(new CreatorPolygon());
-            this.Add(new CreatorTrianlge());
+            AddCreator(new CreatorLine());
         }
 
         public Figure GetFigure(int figureID)
         {
             return this[figureID].CreateFigure();
+        }
+
+        public int AddCreator(Creator creator)
+        {
+            this.Add(currentId, creator);
+            return currentId++;
         }
     }
 }

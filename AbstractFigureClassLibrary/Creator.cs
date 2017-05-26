@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Paint.Figures
+namespace AbstractFigureClassLibrary
 {
-    abstract class Creator
+    public abstract class Creator
     {
+        public string Name { get; set; }
         public abstract Figure CreateFigure(); 
     }
 }

@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using AbstractFigureClassLibrary;
 
-namespace Paint.Figures
+namespace EllipseClassLibrary
 {
     [Serializable]
     public class Circle : Ellipse

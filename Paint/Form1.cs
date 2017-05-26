@@ -13,7 +13,8 @@ using System.Windows.Input;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-
+using AbstractFigureClassLibrary;
+using System.Reflection;
 
 namespace Paint
 {
@@ -28,6 +29,9 @@ namespace Paint
         private Point currentPoint;
         private List<Point> MovingPoints;
         private bool moving;
+        private CreatorList creatorList = new CreatorList();
+        private int buttonLocationX;
+        private int buttonLocationY;
 
         public Form1()
         {
@@ -36,6 +40,8 @@ namespace Paint
             MovingPoints = new List<Point>();
             pen = new Pen(Color.Black, 1);
             graphics = pictureBox1.CreateGraphics();
+            buttonLocationX = LineButton.Location.X;
+            buttonLocationY = LineButton.Location.Y;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -61,7 +67,7 @@ namespace Paint
 
         private void btnFigure_MouseDown(object sender, MouseEventArgs e)
         {
-            figure = new CreatorList().GetFigure(int.Parse((sender as Button).Tag.ToString()));
+            figure = creatorList.GetFigure(int.Parse((sender as Button).Tag.ToString()));
         }
 
         private void buttonChangeColor_Click(object sender, EventArgs e)
@@ -222,6 +228,44 @@ namespace Paint
                         MessageBox.Show(g.Message);
                     }
                 }  
+            }
+        }
+
+        private void buttonLoadLibrary_Click(object sender, EventArgs e)
+        {
+            bool flag = false;
+            openFileDialog2.ShowDialog();
+            if (openFileDialog2.FileName != "")
+            {
+                var dll = Assembly.LoadFile(openFileDialog2.FileName);
+                foreach(var type in dll.ExportedTypes)
+                {
+                    if(type.IsSubclassOf(typeof(Creator)))
+                    {
+                        Creator creatorInstance = (Creator) type.GetConstructor(new Type[] { }).Invoke(new object[] { });
+                        int creatorId = creatorList.AddCreator(creatorInstance);
+                        Button figureButton = new Button();
+                        figureButton.Tag = creatorId;
+                        groupBox1.Controls.Add(figureButton);
+                        figureButton.Text = creatorInstance.Name;
+                        figureButton.Size = new Size(207, 48);
+                        figureButton.MouseDown += btnFigure_MouseDown;
+                        if (!flag)
+                        {
+                            buttonLocationX += 210;
+                            figureButton.Location = new Point(buttonLocationX, buttonLocationY);
+                            flag = !flag;
+                        }
+                        else
+                        {
+                            buttonLocationX -= 210;
+                            buttonLocationY += 50;
+                            figureButton.Location = new Point(buttonLocationX, buttonLocationY);
+                            flag = !flag;
+                        }
+
+                    }
+                }
             }
         }
     }
