@@ -32,6 +32,7 @@ namespace Paint
         private CreatorList creatorList = new CreatorList();
         private int buttonLocationX;
         private int buttonLocationY;
+        //private List<Figure> accessibleFigures;
 
         public Form1()
         {
@@ -42,6 +43,8 @@ namespace Paint
             graphics = pictureBox1.CreateGraphics();
             buttonLocationX = LineButton.Location.X;
             buttonLocationY = LineButton.Location.Y;
+            //accessibleFigures = new List<Figure>();
+            //accessibleFigures.Add(Line)
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -217,16 +220,17 @@ namespace Paint
             {
                 using (var fStream = File.OpenRead(openFileDialog1.FileName))
                 {
-                    try
-                    {
+                    //try
+                   // {
                         Figures = new List<Figure>();
                         Figures = (List<Figure>)formatter.Deserialize(fStream);
                         DrawAll();
-                    }
-                    catch (SerializationException g)
-                    {
-                        MessageBox.Show(g.Message);
-                    }
+                    //}
+                    //catch (SerializationException)
+                    //{
+                    //    MessageBox.Show("Ошибка десериализации, возможно не подключены библиотеки с фигурами", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //    Figures.Clear();
+                    //}
                 }  
             }
         }
@@ -237,34 +241,53 @@ namespace Paint
             openFileDialog2.ShowDialog();
             if (openFileDialog2.FileName != "")
             {
-                var dll = Assembly.LoadFile(openFileDialog2.FileName);
-                foreach(var type in dll.ExportedTypes)
+                try
                 {
-                    if(type.IsSubclassOf(typeof(Creator)))
+                    var dll = Assembly.LoadFile(openFileDialog2.FileName);
+                    foreach (var type in dll.ExportedTypes)
                     {
-                        Creator creatorInstance = (Creator) type.GetConstructor(new Type[] { }).Invoke(new object[] { });
-                        int creatorId = creatorList.AddCreator(creatorInstance);
-                        Button figureButton = new Button();
-                        figureButton.Tag = creatorId;
-                        groupBox1.Controls.Add(figureButton);
-                        figureButton.Text = creatorInstance.Name;
-                        figureButton.Size = new Size(207, 48);
-                        figureButton.MouseDown += btnFigure_MouseDown;
-                        if (!flag)
+                        if (type.IsSubclassOf(typeof(Creator)))
                         {
-                            buttonLocationX += 210;
-                            figureButton.Location = new Point(buttonLocationX, buttonLocationY);
-                            flag = !flag;
+                            Creator creatorInstance = (Creator)type.GetConstructor(new Type[] { }).Invoke(new object[] { });
+                            if (creatorList.ContainsValue(creatorInstance))
+                            {
+                                throw new ReloadException();
+                            }
+                            int creatorId = creatorList.AddCreator(creatorInstance);
+                             
+                            Button figureButton = new Button();
+                            figureButton.Tag = creatorId;
+                            groupBox1.Controls.Add(figureButton);
+                            figureButton.Text = creatorInstance.Name;
+                            figureButton.Size = new Size(207, 48);
+                            figureButton.MouseDown += btnFigure_MouseDown;
+                            if (!flag)
+                            {
+                                buttonLocationX += 210;
+                                figureButton.Location = new Point(buttonLocationX, buttonLocationY);
+                                flag = !flag;
+                            }
+                            else
+                            {
+                                buttonLocationX -= 210;
+                                buttonLocationY += 50;
+                                figureButton.Location = new Point(buttonLocationX, buttonLocationY);
+                                flag = !flag;
+                            }
                         }
-                        else
+                        if (type.IsSubclassOf(typeof(Figure)))
                         {
-                            buttonLocationX -= 210;
-                            buttonLocationY += 50;
-                            figureButton.Location = new Point(buttonLocationX, buttonLocationY);
-                            flag = !flag;
-                        }
 
+                        }
                     }
+                }
+                catch (ReloadException)
+                {
+                    MessageBox.Show("Библиотека уже загружена", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Ошибка загрузки библиотеки", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
