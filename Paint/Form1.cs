@@ -202,6 +202,7 @@ namespace Paint
             else
             {
                 var formatter = new BinaryFormatter();
+                formatter.AssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple;
                 saveFileDialog1.ShowDialog();
                 if (saveFileDialog1.FileName != "")
                 {
@@ -216,7 +217,8 @@ namespace Paint
         private void buttonDeserialize_Click(object sender, EventArgs e)
         {
             var formatter = new BinaryFormatter();
-            formatter.AssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Full;
+            formatter.AssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple;
+            formatter.Binder = new VersionConfigToNamespaceAssemblyObjectBinder();
             openFileDialog1.ShowDialog();
             if (openFileDialog1.FileName != "")
             {
@@ -234,6 +236,32 @@ namespace Paint
                         Figures.Clear();
                     }
                 }  
+            }
+        }
+
+        class VersionConfigToNamespaceAssemblyObjectBinder : SerializationBinder
+        {
+            public override Type BindToType(string assemblyName, string typeName)
+            {
+                Type typeToDeserialize = null;
+                try
+                {
+                    string ToAssemblyName = assemblyName.Split(',')[0];
+                    Assembly[] Assemblies = AppDomain.CurrentDomain.GetAssemblies();
+                    foreach (Assembly ass in Assemblies)
+                    {
+                        if (ass.FullName.Split(',')[0] == ToAssemblyName)
+                        {
+                            typeToDeserialize = ass.GetType(typeName);
+                            break;
+                        }
+                    }
+                }
+                catch (System.Exception exception)
+                {
+                    throw exception;
+                }
+                return typeToDeserialize;
             }
         }
 
