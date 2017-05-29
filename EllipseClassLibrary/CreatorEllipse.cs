@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AbstractFigureClassLibrary;
 
-namespace EllipseClassLibrary
+namespace Paint
 {
     public class CreatorEllipse: Creator
     {

@@ -51,6 +51,7 @@
     <ProjectReference Include="..\AbstractFigureClassLibrary\AbstractFigureClassLibrary.csproj">
       <Project>{1f98f8f3-7e7c-4a4b-bfff-75e204afe914}</Project>
       <Name>AbstractFigureClassLibrary</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

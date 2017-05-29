@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using AbstractFigureClassLibrary;
 
-namespace EllipseClassLibrary
+namespace Paint
 {
     [Serializable]
     public class Circle : Ellipse
