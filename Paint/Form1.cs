@@ -32,8 +32,6 @@ namespace Paint
         private CreatorList creatorList = new CreatorList();
         private int buttonLocationX;
         private int buttonLocationY;
-        private List<Figure> accessibleFigures;
-        private AppDomain domain = AppDomain.CurrentDomain;
 
         public Form1()
         {
@@ -44,8 +42,6 @@ namespace Paint
             graphics = pictureBox1.CreateGraphics();
             buttonLocationX = LineButton.Location.X;
             buttonLocationY = LineButton.Location.Y;
-            accessibleFigures = new List<Figure>();
-            //accessibleFigures.Add(typeof()
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -220,22 +216,29 @@ namespace Paint
             formatter.AssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple;
             formatter.Binder = new VersionConfigToNamespaceAssemblyObjectBinder();
             openFileDialog1.ShowDialog();
-            if (openFileDialog1.FileName != "")
+            try
             {
-                using (var fStream = File.OpenRead(openFileDialog1.FileName))
+                if (openFileDialog1.FileName != "")
                 {
-                    try
+                    using (var fStream = File.OpenRead(openFileDialog1.FileName))
                     {
-                        Figures = new List<Figure>();
-                        Figures = (List<Figure>)formatter.Deserialize(fStream);
-                        DrawAll();
+                        try
+                        {
+                            Figures = new List<Figure>();
+                            Figures = (List<Figure>)formatter.Deserialize(fStream);
+                            DrawAll();
+                        }
+                        catch (SerializationException)
+                        {
+                            MessageBox.Show("Ошибка десериализации, возможно не подключены библиотеки с фигурами", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Figures.Clear();
+                        }
                     }
-                    catch (SerializationException ex)
-                    {
-                        MessageBox.Show(ex.ToString(), "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Figures.Clear();
-                    }
-                }  
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                //MessageBox.Show("Файл не найден", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -305,16 +308,15 @@ namespace Paint
                                 flag = !flag;
                             }
                         }
-                        if (type.IsSubclassOf(typeof(Figure)))
-                        {
-                            //Creator creatorInstance = (Creator)type.GetConstructor(new Type[] { }).Invoke(new object[] { });
-                            Activator.CreateInstance(type);
-                        }
                     }
                 }
                 catch (ReloadException)
                 {
                     MessageBox.Show("Библиотека уже загружена", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (FileNotFoundException)
+                {
+                    MessageBox.Show("Файл не найден", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception)
                 {
